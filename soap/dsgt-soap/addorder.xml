@@ -1,0 +1,25 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://foodmenu.io/gt/webservice">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:addOrderRequest>
+            <gs:order>
+                <gs:address>Oliver, Tervuursevest 50, 3000 Leuven</gs:address>
+                <gs:meals>
+                    <gs:name>asdfasdf</gs:name>
+                    <gs:kcal>5555</gs:kcal>
+                    <gs:description>asdfasdf</gs:description>
+                    <gs:mealtype>fish</gs:mealtype>
+                    <gs:price>0</gs:price>
+                </gs:meals>
+                <gs:meals>
+                    <gs:name>fasdfasd</gs:name>
+                    <gs:kcal>999</gs:kcal>
+                    <gs:description>asdfasdfasdfa</gs:description>
+                    <gs:mealtype>vegan</gs:mealtype>
+                    <gs:price>50</gs:price>
+                </gs:meals>
+            </gs:order>
+        </gs:addOrderRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
