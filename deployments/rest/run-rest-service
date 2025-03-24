@@ -1,0 +1,5 @@
+echo "make sure this service doesn't run already!"
+echo "starting in background and printing to rest-service.log"
+java -jar ./rest-service.jar >> rest-service.log 2>&1 &
+echo "done"
+
