@@ -1,0 +1,292 @@
+2025-04-15 13:43:39,494 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2025-04-15 13:43:39,574 INFO o.a.j.JMeter: Loading user properties from: /home/shubhamvmeurope/DisSys/jmeter/apache-jmeter-5.6.3/bin/user.properties
+2025-04-15 13:43:39,576 INFO o.a.j.JMeter: Loading system properties from: /home/shubhamvmeurope/DisSys/jmeter/apache-jmeter-5.6.3/bin/system.properties
+2025-04-15 13:43:39,594 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2025-04-15 13:43:39,594 INFO o.a.j.JMeter: Version 5.6.3
+2025-04-15 13:43:39,594 INFO o.a.j.JMeter: java.version=17.0.14
+2025-04-15 13:43:39,595 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2025-04-15 13:43:39,595 INFO o.a.j.JMeter: os.name=Linux
+2025-04-15 13:43:39,595 INFO o.a.j.JMeter: os.arch=amd64
+2025-04-15 13:43:39,595 INFO o.a.j.JMeter: os.version=6.8.0-1026-azure
+2025-04-15 13:43:39,597 INFO o.a.j.JMeter: file.encoding=UTF-8
+2025-04-15 13:43:39,597 INFO o.a.j.JMeter: java.awt.headless=true
+2025-04-15 13:43:39,597 INFO o.a.j.JMeter: Max memory     =536870912
+2025-04-15 13:43:39,597 INFO o.a.j.JMeter: Available Processors =1
+2025-04-15 13:43:39,622 INFO o.a.j.JMeter: Default Locale=English (EN)
+2025-04-15 13:43:39,623 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2025-04-15 13:43:39,623 INFO o.a.j.JMeter: JMeterHome=/home/shubhamvmeurope/DisSys/jmeter/apache-jmeter-5.6.3
+2025-04-15 13:43:39,623 INFO o.a.j.JMeter: user.dir  =/home/shubhamvmeurope/DisSys/jmeter/Test 3
+2025-04-15 13:43:39,625 INFO o.a.j.JMeter: PWD       =/home/shubhamvmeurope/DisSys/jmeter/Test 3
+2025-04-15 13:43:39,638 INFO o.a.j.JMeter: IP: 10.1.1.4 Name: shubhamvmeurope FullName: shubhamvmeurope.internal.cloudapp.net
+2025-04-15 13:43:39,690 INFO o.a.j.s.FileServer: Default base='/home/shubhamvmeurope/DisSys/jmeter/Test 3'
+2025-04-15 13:43:39,697 INFO o.a.j.s.FileServer: Set new base='/home/shubhamvmeurope/DisSys/jmeter/Test 3'
+2025-04-15 13:43:40,399 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2025-04-15 13:43:40,487 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2025-04-15 13:43:40,495 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2025-04-15 13:43:40,504 INFO o.a.j.s.SaveService: Loading file: US_West_Test.jmx
+2025-04-15 13:43:40,655 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-04-15 13:43:40,656 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-04-15 13:43:40,656 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-04-15 13:43:40,656 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-04-15 13:43:40,656 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2025-04-15 13:43:40,656 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2025-04-15 13:43:40,729 INFO o.a.j.JMeter: Creating summariser <summary>
+2025-04-15 13:43:40,763 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2025-04-15 13:43:40,764 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2025-04-15 13:43:40,765 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2025-04-15 13:43:40,783 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2025-04-15 13:43:40,783 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2025-04-15 13:43:41,010 INFO o.a.j.JMeter: Running test (1744724621010)
+2025-04-15 13:43:41,055 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : US_West_Test
+2025-04-15 13:43:41,055 INFO o.a.j.e.StandardJMeterEngine: Starting 200 threads for group US_West_Test.
+2025-04-15 13:43:41,056 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2025-04-15 13:43:41,056 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=200 ramp-up=0 delayedStart=false
+2025-04-15 13:43:41,072 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-2
+2025-04-15 13:43:41,073 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-1
+2025-04-15 13:43:41,076 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-4
+2025-04-15 13:43:41,076 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-3
+2025-04-15 13:43:41,080 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-5
+2025-04-15 13:43:41,083 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-6
+2025-04-15 13:43:41,086 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-7
+2025-04-15 13:43:41,090 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-8
+2025-04-15 13:43:41,091 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-9
+2025-04-15 13:43:41,094 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-10
+2025-04-15 13:43:41,098 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-11
+2025-04-15 13:43:41,108 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-13
+2025-04-15 13:43:41,110 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-12
+2025-04-15 13:43:41,116 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-14
+2025-04-15 13:43:41,121 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-15
+2025-04-15 13:43:41,122 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-16
+2025-04-15 13:43:41,127 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-17
+2025-04-15 13:43:41,129 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-18
+2025-04-15 13:43:41,133 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-19
+2025-04-15 13:43:41,137 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-20
+2025-04-15 13:43:41,139 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-21
+2025-04-15 13:43:41,143 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-22
+2025-04-15 13:43:41,144 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-23
+2025-04-15 13:43:41,149 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-24
+2025-04-15 13:43:41,154 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-25
+2025-04-15 13:43:41,158 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-26
+2025-04-15 13:43:41,160 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-27
+2025-04-15 13:43:41,164 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-28
+2025-04-15 13:43:41,167 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-29
+2025-04-15 13:43:41,170 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-30
+2025-04-15 13:43:41,174 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = shubhamvmeurope
+2025-04-15 13:43:41,174 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-31
+2025-04-15 13:43:41,177 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-32
+2025-04-15 13:43:41,181 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-33
+2025-04-15 13:43:41,183 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-34
+2025-04-15 13:43:41,193 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-35
+2025-04-15 13:43:41,195 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-36
+2025-04-15 13:43:41,202 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-37
+2025-04-15 13:43:41,203 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-38
+2025-04-15 13:43:41,208 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-39
+2025-04-15 13:43:41,209 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-40
+2025-04-15 13:43:41,214 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-41
+2025-04-15 13:43:41,210 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2025-04-15 13:43:41,218 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2025-04-15 13:43:41,218 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2025-04-15 13:43:41,220 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-42
+2025-04-15 13:43:41,223 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-43
+2025-04-15 13:43:41,223 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2025-04-15 13:43:41,223 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2025-04-15 13:43:41,225 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-44
+2025-04-15 13:43:41,229 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-45
+2025-04-15 13:43:41,230 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-46
+2025-04-15 13:43:41,232 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-47
+2025-04-15 13:43:41,234 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-48
+2025-04-15 13:43:41,240 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-49
+2025-04-15 13:43:41,244 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-50
+2025-04-15 13:43:41,248 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-51
+2025-04-15 13:43:41,251 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-52
+2025-04-15 13:43:41,256 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-54
+2025-04-15 13:43:41,258 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-53
+2025-04-15 13:43:41,258 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-55
+2025-04-15 13:43:41,263 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-56
+2025-04-15 13:43:41,266 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-57
+2025-04-15 13:43:41,269 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-58
+2025-04-15 13:43:41,273 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-59
+2025-04-15 13:43:41,281 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-60
+2025-04-15 13:43:41,286 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-61
+2025-04-15 13:43:41,294 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-62
+2025-04-15 13:43:41,325 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-64
+2025-04-15 13:43:41,314 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-63
+2025-04-15 13:43:41,337 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-65
+2025-04-15 13:43:41,341 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-66
+2025-04-15 13:43:41,347 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-67
+2025-04-15 13:43:41,350 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-68
+2025-04-15 13:43:41,356 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-69
+2025-04-15 13:43:41,359 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-70
+2025-04-15 13:43:41,360 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-71
+2025-04-15 13:43:41,366 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-72
+2025-04-15 13:43:41,370 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-73
+2025-04-15 13:43:41,377 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-74
+2025-04-15 13:43:41,379 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-75
+2025-04-15 13:43:41,383 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-76
+2025-04-15 13:43:41,384 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-77
+2025-04-15 13:43:41,389 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-78
+2025-04-15 13:43:41,390 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-79
+2025-04-15 13:43:41,392 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-80
+2025-04-15 13:43:41,396 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-81
+2025-04-15 13:43:41,399 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-82
+2025-04-15 13:43:41,401 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-83
+2025-04-15 13:43:41,406 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-84
+2025-04-15 13:43:41,408 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-85
+2025-04-15 13:43:41,431 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-90
+2025-04-15 13:43:41,436 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-86
+2025-04-15 13:43:41,437 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-87
+2025-04-15 13:43:41,437 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-88
+2025-04-15 13:43:41,438 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-89
+2025-04-15 13:43:41,440 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-91
+2025-04-15 13:43:41,445 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-92
+2025-04-15 13:43:41,444 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-93
+2025-04-15 13:43:41,452 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-94
+2025-04-15 13:43:41,456 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-95
+2025-04-15 13:43:41,460 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-96
+2025-04-15 13:43:41,465 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-97
+2025-04-15 13:43:41,468 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-98
+2025-04-15 13:43:41,472 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-99
+2025-04-15 13:43:41,474 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-100
+2025-04-15 13:43:41,478 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-101
+2025-04-15 13:43:41,481 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-102
+2025-04-15 13:43:41,486 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-103
+2025-04-15 13:43:41,491 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-104
+2025-04-15 13:43:41,492 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-105
+2025-04-15 13:43:41,494 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-106
+2025-04-15 13:43:41,498 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-107
+2025-04-15 13:43:41,501 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-108
+2025-04-15 13:43:41,503 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-109
+2025-04-15 13:43:41,507 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-110
+2025-04-15 13:43:41,509 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-111
+2025-04-15 13:43:41,514 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-112
+2025-04-15 13:43:41,516 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-113
+2025-04-15 13:43:41,519 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-114
+2025-04-15 13:43:41,523 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-115
+2025-04-15 13:43:41,525 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-116
+2025-04-15 13:43:41,529 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-117
+2025-04-15 13:43:41,531 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-118
+2025-04-15 13:43:41,536 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-119
+2025-04-15 13:43:41,540 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-120
+2025-04-15 13:43:41,543 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-121
+2025-04-15 13:43:41,545 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-122
+2025-04-15 13:43:41,549 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-123
+2025-04-15 13:43:41,549 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-124
+2025-04-15 13:43:41,551 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-125
+2025-04-15 13:43:41,555 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-126
+2025-04-15 13:43:41,558 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-127
+2025-04-15 13:43:41,561 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-128
+2025-04-15 13:43:41,564 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-129
+2025-04-15 13:43:41,567 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-130
+2025-04-15 13:43:41,570 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-131
+2025-04-15 13:43:41,574 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-132
+2025-04-15 13:43:41,577 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-133
+2025-04-15 13:43:41,580 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-134
+2025-04-15 13:43:41,581 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-135
+2025-04-15 13:43:41,584 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-136
+2025-04-15 13:43:41,588 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-137
+2025-04-15 13:43:41,595 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-139
+2025-04-15 13:43:41,590 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-138
+2025-04-15 13:43:41,596 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-140
+2025-04-15 13:43:41,602 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-143
+2025-04-15 13:43:41,601 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-141
+2025-04-15 13:43:41,602 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-142
+2025-04-15 13:43:41,607 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-144
+2025-04-15 13:43:41,610 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-145
+2025-04-15 13:43:41,611 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-146
+2025-04-15 13:43:41,615 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-147
+2025-04-15 13:43:41,618 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-148
+2025-04-15 13:43:41,620 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-149
+2025-04-15 13:43:41,624 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-150
+2025-04-15 13:43:41,627 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-151
+2025-04-15 13:43:41,630 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-152
+2025-04-15 13:43:41,637 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-154
+2025-04-15 13:43:41,636 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-153
+2025-04-15 13:43:41,641 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-155
+2025-04-15 13:43:41,645 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-156
+2025-04-15 13:43:41,647 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-157
+2025-04-15 13:43:41,652 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-158
+2025-04-15 13:43:41,658 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-159
+2025-04-15 13:43:41,659 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-160
+2025-04-15 13:43:41,665 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-161
+2025-04-15 13:43:41,667 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-162
+2025-04-15 13:43:41,675 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-163
+2025-04-15 13:43:41,677 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-164
+2025-04-15 13:43:41,681 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-165
+2025-04-15 13:43:41,685 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-166
+2025-04-15 13:43:41,690 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-167
+2025-04-15 13:43:41,693 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-168
+2025-04-15 13:43:41,698 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-169
+2025-04-15 13:43:41,703 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-170
+2025-04-15 13:43:41,706 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-171
+2025-04-15 13:43:41,712 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-172
+2025-04-15 13:43:41,714 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-173
+2025-04-15 13:43:41,723 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-174
+2025-04-15 13:43:41,728 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-175
+2025-04-15 13:43:41,734 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-176
+2025-04-15 13:43:41,739 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-177
+2025-04-15 13:43:41,748 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-178
+2025-04-15 13:43:41,752 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-179
+2025-04-15 13:43:41,764 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-180
+2025-04-15 13:43:41,766 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-181
+2025-04-15 13:43:41,773 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-182
+2025-04-15 13:43:41,779 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-183
+2025-04-15 13:43:41,785 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-184
+2025-04-15 13:43:41,795 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-185
+2025-04-15 13:43:41,808 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-186
+2025-04-15 13:43:41,819 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-187
+2025-04-15 13:43:41,826 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-188
+2025-04-15 13:43:41,830 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-189
+2025-04-15 13:43:41,832 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-190
+2025-04-15 13:43:41,833 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-191
+2025-04-15 13:43:41,838 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-192
+2025-04-15 13:43:41,840 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-193
+2025-04-15 13:43:41,847 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-194
+2025-04-15 13:43:41,852 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-195
+2025-04-15 13:43:41,854 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-196
+2025-04-15 13:43:41,858 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-197
+2025-04-15 13:43:41,863 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-198
+2025-04-15 13:43:41,866 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-199
+2025-04-15 13:43:41,870 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2025-04-15 13:43:41,870 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2025-04-15 13:43:41,871 INFO o.a.j.t.JMeterThread: Thread started: US_West_Test 1-200
+2025-04-15 13:44:00,005 INFO o.a.j.r.Summariser: summary +  15220 in 00:00:19 =  801.5/s Avg:   235 Min:   148 Max:  1602 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:44:30,004 INFO o.a.j.r.Summariser: summary +  25608 in 00:00:30 =  853.6/s Avg:   233 Min:   149 Max:  2476 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:44:30,006 INFO o.a.j.r.Summariser: summary =  40828 in 00:00:49 =  833.4/s Avg:   234 Min:   148 Max:  2476 Err:     0 (0.00%)
+2025-04-15 13:45:00,001 INFO o.a.j.r.Summariser: summary +  25587 in 00:00:30 =  852.9/s Avg:   234 Min:   151 Max:  2452 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:45:00,004 INFO o.a.j.r.Summariser: summary =  66415 in 00:01:19 =  840.8/s Avg:   234 Min:   148 Max:  2476 Err:     0 (0.00%)
+2025-04-15 13:45:30,005 INFO o.a.j.r.Summariser: summary +  25778 in 00:00:30 =  859.2/s Avg:   233 Min:   150 Max:  1703 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:45:30,007 INFO o.a.j.r.Summariser: summary =  92193 in 00:01:49 =  845.9/s Avg:   234 Min:   148 Max:  2476 Err:     0 (0.00%)
+2025-04-15 13:46:00,001 INFO o.a.j.r.Summariser: summary +  25874 in 00:00:30 =  862.6/s Avg:   231 Min:   151 Max:  1249 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:46:00,003 INFO o.a.j.r.Summariser: summary = 118067 in 00:02:19 =  849.5/s Avg:   233 Min:   148 Max:  2476 Err:     0 (0.00%)
+2025-04-15 13:46:30,001 INFO o.a.j.r.Summariser: summary +  25734 in 00:00:30 =  857.8/s Avg:   233 Min:   149 Max:  1944 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:46:30,002 INFO o.a.j.r.Summariser: summary = 143801 in 00:02:49 =  850.9/s Avg:   233 Min:   148 Max:  2476 Err:     0 (0.00%)
+2025-04-15 13:47:00,002 INFO o.a.j.r.Summariser: summary +  25772 in 00:00:30 =  859.0/s Avg:   232 Min:   149 Max:  1091 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:47:00,004 INFO o.a.j.r.Summariser: summary = 169573 in 00:03:19 =  852.2/s Avg:   233 Min:   148 Max:  2476 Err:     0 (0.00%)
+2025-04-15 13:47:30,001 INFO o.a.j.r.Summariser: summary +  25914 in 00:00:30 =  863.9/s Avg:   230 Min:   152 Max:  1493 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:47:30,002 INFO o.a.j.r.Summariser: summary = 195487 in 00:03:49 =  853.7/s Avg:   232 Min:   148 Max:  2476 Err:     0 (0.00%)
+2025-04-15 13:48:00,005 INFO o.a.j.r.Summariser: summary +  25716 in 00:00:30 =  857.1/s Avg:   234 Min:   148 Max:  2489 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:48:00,007 INFO o.a.j.r.Summariser: summary = 221203 in 00:04:19 =  854.1/s Avg:   233 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:48:30,001 INFO o.a.j.r.Summariser: summary +  25862 in 00:00:30 =  862.2/s Avg:   231 Min:   150 Max:  2090 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:48:30,002 INFO o.a.j.r.Summariser: summary = 247065 in 00:04:49 =  854.9/s Avg:   233 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:49:00,003 INFO o.a.j.r.Summariser: summary +  25824 in 00:00:30 =  860.8/s Avg:   232 Min:   152 Max:  1933 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:49:00,004 INFO o.a.j.r.Summariser: summary = 272889 in 00:05:19 =  855.5/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:49:30,001 INFO o.a.j.r.Summariser: summary +  25838 in 00:00:30 =  861.3/s Avg:   232 Min:   150 Max:  1459 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:49:30,003 INFO o.a.j.r.Summariser: summary = 298727 in 00:05:49 =  856.0/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:50:00,001 INFO o.a.j.r.Summariser: summary +  25763 in 00:00:30 =  858.8/s Avg:   232 Min:   152 Max:  1611 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:50:00,003 INFO o.a.j.r.Summariser: summary = 324490 in 00:06:19 =  856.2/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:50:30,005 INFO o.a.j.r.Summariser: summary +  25887 in 00:00:30 =  862.8/s Avg:   231 Min:   148 Max:  1378 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:50:30,006 INFO o.a.j.r.Summariser: summary = 350377 in 00:06:49 =  856.7/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:51:00,003 INFO o.a.j.r.Summariser: summary +  25619 in 00:00:30 =  854.0/s Avg:   234 Min:   149 Max:  1502 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:51:00,006 INFO o.a.j.r.Summariser: summary = 375996 in 00:07:19 =  856.5/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:51:30,002 INFO o.a.j.r.Summariser: summary +  25822 in 00:00:30 =  860.8/s Avg:   232 Min:   148 Max:  1690 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:51:30,005 INFO o.a.j.r.Summariser: summary = 401818 in 00:07:49 =  856.8/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:52:00,003 INFO o.a.j.r.Summariser: summary +  25953 in 00:00:30 =  865.1/s Avg:   231 Min:   149 Max:  1282 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:52:00,005 INFO o.a.j.r.Summariser: summary = 427771 in 00:08:19 =  857.3/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:52:30,001 INFO o.a.j.r.Summariser: summary +  25799 in 00:00:30 =  860.0/s Avg:   232 Min:   151 Max:  1622 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:52:30,003 INFO o.a.j.r.Summariser: summary = 453570 in 00:08:49 =  857.4/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:53:00,001 INFO o.a.j.r.Summariser: summary +  25974 in 00:00:30 =  865.8/s Avg:   230 Min:   150 Max:  1627 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:53:00,002 INFO o.a.j.r.Summariser: summary = 479544 in 00:09:19 =  857.9/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:53:30,001 INFO o.a.j.r.Summariser: summary +  25833 in 00:00:30 =  861.1/s Avg:   231 Min:   151 Max:  2296 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2025-04-15 13:53:30,003 INFO o.a.j.r.Summariser: summary = 505377 in 00:09:49 =  858.0/s Avg:   232 Min:   148 Max:  2489 Err:     0 (0.00%)
+2025-04-15 13:53:42,140 INFO o.a.j.r.ResultCollector: Shutdown hook started
+2025-04-15 13:53:42,146 INFO o.a.j.r.ResultCollector: Shutdown hook ended
