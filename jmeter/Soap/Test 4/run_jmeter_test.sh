@@ -5,7 +5,7 @@ RESULTS_DIR=~/jmeter/soap/results
 JTL_FILE="$RESULTS_DIR/results.jtl"
 LOG_FILE="$RESULTS_DIR/jmeter.log"
 JMX_FILE=us_east_soap_test4.jmx
-JMETER_BIN=../apache-jmeter-5.6.3/bin/jmeter
+JMETER_BIN=../../apache-jmeter-5.6.3/bin/jmeter
 
 # Ensure results directory exists
 mkdir -p "$RESULTS_DIR"
