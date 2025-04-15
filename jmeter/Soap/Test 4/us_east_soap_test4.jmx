@@ -21,7 +21,7 @@
       </ThreadGroup>
       <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request">
-          <stringProp name="HTTPSampler.domain">shubhamuse.eastus.cloudapp.azure.com </stringProp>
+          <stringProp name="HTTPSampler.domain">shubhamuse.eastus.cloudapp.azure.com</stringProp>
           <stringProp name="HTTPSampler.port">8081</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.path">/ws</stringProp>
@@ -36,9 +36,7 @@
                 <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:gs=&quot;http://foodmenu.io/gt/webservice&quot;&gt;&#xd;
   &lt;soapenv:Header/&gt;&#xd;
   &lt;soapenv:Body&gt;&#xd;
-    &lt;gs:getMealRequest&gt;&#xd;
-      &lt;gs:name&gt;Portobello&lt;/gs:name&gt;&#xd;
-    &lt;/gs:getMealRequest&gt;&#xd;
+    &lt;gs:getAllMealsRequest/&gt;&#xd;
   &lt;/soapenv:Body&gt;&#xd;
 &lt;/soapenv:Envelope&gt;</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
@@ -56,7 +54,7 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
