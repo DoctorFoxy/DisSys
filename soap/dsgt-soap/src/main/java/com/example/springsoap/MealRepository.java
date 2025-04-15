@@ -49,6 +49,10 @@ public class MealRepository {
         meals.put(c.getName(), c);
     }
 
+    public Collection<Meal> getAllMeals() {
+        return meals.values();
+    }
+
     public Meal findMeal(String name) {
         Assert.notNull(name, "The meal's code must not be null");
         return meals.get(name);

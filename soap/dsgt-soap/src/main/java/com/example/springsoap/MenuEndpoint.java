@@ -21,6 +21,15 @@ public class MenuEndpoint {
         this.mealrepo = mealrepo;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllMealsRequest")
+    @ResponsePayload
+    public GetAllMealsResponse getMeal(@RequestPayload GetAllMealsRequest request) {
+        GetAllMealsResponse response = new GetAllMealsResponse();
+        response.getMeals().addAll(mealrepo.getAllMeals());
+
+        return response;
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMealRequest")
     @ResponsePayload
     public GetMealResponse getMeal(@RequestPayload GetMealRequest request) {
