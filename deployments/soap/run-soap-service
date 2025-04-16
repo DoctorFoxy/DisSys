@@ -1,5 +1,0 @@
-echo "make sure this service doesn't run already!"
-echo "starting in background and printing output to soap-service.log"
-java -jar ./soap-service.jar >> soap-service.log 2>&1 &
-echo "done, use 'cat soap-service.log' to see output"
-
