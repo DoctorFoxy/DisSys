@@ -1,0 +1,5 @@
+<div style="display: flex; flex-direction: column; gap: 10px">
+@for (item of items; track item.id) {
+    <item [item]="item"></item>
+}
+</div>

@@ -1,0 +1,15 @@
+<header>
+    <mat-toolbar style="display: flex; flex-flow: row nowrap; justify-content: space-between;">
+        <span>ULTIMATE HANGOVER EMERGENCY RECOVERY DELIVERY SERVICE</span>
+        
+        
+        @if (isLoggedIn()) {
+            <span>Hi {{ user()?.displayname }}!</span>
+        }
+        @else {
+            <button mat-button (click)="openLoginDialog()">Login</button>
+        }
+
+
+    </mat-toolbar>
+</header>
