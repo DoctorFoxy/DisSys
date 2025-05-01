@@ -1,0 +1,40 @@
+<h2>All Orders</h2>
+
+@if (!isLoggedIn()) {
+    <p>Please login.</p>
+}
+@else if (!isAdmin()) {
+    <p>You do not have the right permissions to see this.</p>
+}
+@else {
+
+    @if (orders()?.length == 0) {
+        <p>There are no orders</p>
+    }
+    @else {
+        <div style="display: flex; flex-direction: column; gap: 10px">
+        @for (order of orders(); track order.id) {
+            <mat-card>
+                <mat-card-header>
+                    <p>{{ order.time.toDateString() }}</p>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <p>
+                        ID: {{ order.id }}
+                        <br>
+                        Item: {{ order.itemid }}
+                        <br>
+                        Ordered by: {{ order.userid }}
+                        <br>
+                        Delivary Address: {{ order.deliveryAddress }}
+                        <br>
+                        Status: {{ order.status }}
+                    </p>
+                </mat-card-content>
+            </mat-card>
+        }
+        </div>
+    }
+
+}

@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
+import { UserService } from "../services/user.service";
 
 @Component({
     selector: 'app-nav',
@@ -9,5 +10,7 @@ import { RouterLink } from "@angular/router";
     ],
 })
 export class NavComponent {
-
+    private userService = inject(UserService);
+    isLoggedIn = this.userService.isLoggedIn;
+    isAdmin = this.userService.isAdmin;
 }

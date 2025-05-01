@@ -30,6 +30,7 @@ export class UserService {
     private loggedInUserSignal = signal<User | null>(null);
     readonly loggedInUser = this.loggedInUserSignal.asReadonly();
     readonly isLoggedIn = computed(() => !!this.loggedInUser());
+    readonly isAdmin = computed(() => this.loggedInUser()?.isAdmin || false);
 
     login(loginname: string): boolean {
         const user = users.find(u => u.loginname == loginname);

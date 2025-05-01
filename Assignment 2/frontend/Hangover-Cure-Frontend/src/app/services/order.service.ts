@@ -76,7 +76,7 @@ const orders: {[userId: number]: Order[]} = {
 })
 export class OrderService {
     private userService = inject(UserService);
-    readonly orders = computed(() => {
+    readonly myOrders = computed(() => {
         const user = this.userService.loggedInUser();
         if(user) {
             return orders[user.id] ?? [];
@@ -85,4 +85,14 @@ export class OrderService {
             return null;
         }
     });
+
+    readonly allOrders = computed(() => {
+        const user = this.userService.loggedInUser();
+        if(user?.isAdmin) {
+            return Object.values(orders).flatMap(o => o);
+        }
+        else {
+            return null;
+        }
+    })
 }

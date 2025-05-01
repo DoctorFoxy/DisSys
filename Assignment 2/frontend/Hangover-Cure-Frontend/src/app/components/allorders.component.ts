@@ -4,15 +4,16 @@ import { OrderService } from "../services/order.service";
 import { MatCardModule } from "@angular/material/card";
 
 @Component({
-    templateUrl: './myorders.component.html',
+    templateUrl: './allorders.component.html',
     imports: [
         MatCardModule,
     ],
 })
-export class MyOrdersComponent {
+export class AllOrdersComponent {
     private userService = inject(UserService);
     private orderService = inject(OrderService);
 
     isLoggedIn = this.userService.isLoggedIn;
-    orders = this.orderService.myOrders;
+    isAdmin = this.userService.isAdmin;
+    orders = this.orderService.allOrders;
 }
