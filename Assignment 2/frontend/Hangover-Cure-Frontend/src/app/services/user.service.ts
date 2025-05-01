@@ -40,4 +40,8 @@ export class UserService {
         return false;
     }
 
+    logout() {
+        this.loggedInUserSignal.set(null);
+    }
+
 }
