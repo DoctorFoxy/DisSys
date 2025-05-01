@@ -16,7 +16,7 @@ import { LoginDialogComponent } from "./login-dialog.component";
 export class HeaderComponent {
     private userService = inject(UserService);
     user = this.userService.loggedInUser;
-    isLoggedIn = computed(() => !!this.user());
+    isLoggedIn = this.userService.isLoggedIn;
 
     private dialog = inject(MatDialog);
 
