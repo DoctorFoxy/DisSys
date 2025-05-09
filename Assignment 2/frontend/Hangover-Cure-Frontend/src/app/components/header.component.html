@@ -5,14 +5,14 @@
         
         @if (isLoggedIn()) {
             <span>
-                Hi {{ user()?.displayname }}!
+                Hi {{ user()?.name }}!
                 <button mat-icon-button matTooltip="Logout" (click)="logout()">
                     <mat-icon>logout</mat-icon>
                 </button>
             </span>
         }
         @else {
-            <button mat-button (click)="openLoginDialog()">Login</button>
+            <button mat-button (click)="goToLogin()">Login</button>
         }
 
 

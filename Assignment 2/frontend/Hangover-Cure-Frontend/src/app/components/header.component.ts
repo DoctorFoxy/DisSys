@@ -2,8 +2,6 @@ import { Component, computed, inject } from "@angular/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { UserService } from "../services/user.service";
 import { MatButtonModule } from "@angular/material/button";
-import { MatDialog } from "@angular/material/dialog";
-import { LoginDialogComponent } from "./login-dialog.component";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
 
@@ -19,13 +17,11 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 })
 export class HeaderComponent {
     private userService = inject(UserService);
-    user = this.userService.loggedInUser;
-    isLoggedIn = this.userService.isLoggedIn;
+    readonly isLoggedIn = this.userService.isLoggedIn;
+    readonly user = this.userService.loggedInUser;
 
-    private dialog = inject(MatDialog);
-
-    openLoginDialog() {
-        this.dialog.open(LoginDialogComponent);
+    goToLogin() {
+        this.userService.goToLogin();
     }
 
     logout() {

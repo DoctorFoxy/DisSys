@@ -1,48 +1,30 @@
-import { computed, Injectable, signal } from "@angular/core";
-import { User } from "../models/user.model";
-
-const users: User[] = [
-    {
-        id: 0,
-        displayname: 'Manager',
-        loginname: 'manager',
-        isAdmin: true,
-    },
-    {
-        id: 1,
-        displayname: 'Normal Guy',
-        loginname: 'normal',
-        isAdmin: false,
-    },
-    {
-        id: 2,
-        displayname: 'Heavy Drinker',
-        loginname: 'heavy',
-        isAdmin: false,
-    }
-]
-
+import { computed, inject, Injectable, signal } from "@angular/core";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { AuthService } from "@auth0/auth0-angular";
+import { map } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    private loggedInUserSignal = signal<User | null>(null);
-    readonly loggedInUser = this.loggedInUserSignal.asReadonly();
-    readonly isLoggedIn = computed(() => !!this.loggedInUser());
-    readonly isAdmin = computed(() => this.loggedInUser()?.isAdmin || false);
+    private auth0Service = inject(AuthService);
 
-    login(loginname: string): boolean {
-        const user = users.find(u => u.loginname == loginname);
-        if (user) {
-            this.loggedInUserSignal.set(user);
-            return true;
-        }
-        return false;
+    readonly loggedInUser = toSignal(this.auth0Service.user$, { initialValue: null });
+    readonly isLoggedIn = toSignal(this.auth0Service.isAuthenticated$, { initialValue: false });
+    readonly isAdmin = signal(false);
+
+    constructor() {
+        this.auth0Service.idTokenClaims$.subscribe((tokens) => {
+            console.log('NEW TOKEN: ', tokens);
+        })
+    }
+
+    goToLogin() {
+        this.auth0Service.loginWithRedirect();
     }
 
     logout() {
-        this.loggedInUserSignal.set(null);
+        this.auth0Service.logout();
     }
 
 }
