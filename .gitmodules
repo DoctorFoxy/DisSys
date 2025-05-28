@@ -1,0 +1,3 @@
+[submodule "Assignment 2/REST_python"]
+	path = Assignment 2/REST_python
+	url = https://mealsrest-cte3exhefsh2fscx.scm.swedencentral-01.azurewebsites.net:443/MealsREST.git
