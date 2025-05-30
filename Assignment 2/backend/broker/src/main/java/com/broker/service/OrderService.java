@@ -23,7 +23,12 @@ public class OrderService {
         return orderRepository.findById(id);
     }
 
+    public List<Order> getOrderByUserId(String user_id) {
+        return orderRepository.findAllByUserId(user_id);
+    }
+
     public Order saveOrder(Order order) {
         return orderRepository.save(order);
     }
+
 }
