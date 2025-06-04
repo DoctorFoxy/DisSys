@@ -13,10 +13,15 @@ export class UserService {
     readonly isLoggedIn = toSignal(this.auth0Service.isAuthenticated$, { initialValue: false });
     readonly isAdmin = signal(false);
 
+
     constructor() {
-        this.auth0Service.idTokenClaims$.subscribe((tokens) => {
-            console.log('NEW TOKEN: ', tokens);
-        })
+        this.auth0Service.idTokenClaims$.subscribe((token) => {
+            console.log('NEW TOKEN: ', token);
+        });
+
+        this.auth0Service.user$.subscribe((user) => {
+            console.log('NEW USER: ', user)
+        });    
     }
 
     goToLogin() {

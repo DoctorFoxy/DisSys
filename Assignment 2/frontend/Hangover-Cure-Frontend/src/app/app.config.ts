@@ -10,9 +10,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAuth0({
       domain: 'dev-6vt2svtrmb7h7xy2.us.auth0.com',
-      clientId: 'p1aZPua8EnW0m4VzpfbZkNGvE0FDVMAJ',
+      clientId: 'R7ebcX3OHzCwNNvhFfVQjZbG6EhrKpET',
       authorizationParams: {
-        redirect_uri: window.location.origin
+        redirect_uri: window.location.origin,
+        audience: 'Backend'
       }
     }),
   ]
