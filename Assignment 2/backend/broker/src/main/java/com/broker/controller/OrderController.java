@@ -35,6 +35,12 @@ public class OrderController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // GET /api/orders/user/{user_id}
+    @GetMapping("/user/{user_id}")
+    public List<Order> getOrderByUserId(@PathVariable String user_id) {
+        return orderService.getOrderByUserId(user_id);
+    }
+
     // POST /api/orders
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
