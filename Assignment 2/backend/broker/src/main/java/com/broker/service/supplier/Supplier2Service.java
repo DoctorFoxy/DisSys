@@ -17,4 +17,9 @@ public class Supplier2Service {
         String url = "https://mealsrest-cte3exhefsh2fscx.swedencentral-01.azurewebsites.net/item/{id}";
         return restTemplate.getForObject(url, Supplier2ItemDTO.class, id);
     }
+
+    public String getSupplierItems() {
+        String url = "https://mealsrest-cte3exhefsh2fscx.swedencentral-01.azurewebsites.net/item/8587";
+        return restTemplate.getForObject(url, String.class);
+    }
 }

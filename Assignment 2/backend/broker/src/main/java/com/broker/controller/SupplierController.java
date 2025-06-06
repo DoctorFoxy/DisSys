@@ -25,4 +25,9 @@ public class SupplierController {
     public ResponseEntity<String> getSupplier2Item(@PathVariable Integer id) {
         return ResponseEntity.ok(supplier2Service.getSupplierItemById(id));
     }
+
+    @GetMapping("/supplier2/item")
+    public ResponseEntity<String> getSupplier2Items() {
+        return ResponseEntity.ok(supplier2Service.getSupplierItems());
+    }
 }
