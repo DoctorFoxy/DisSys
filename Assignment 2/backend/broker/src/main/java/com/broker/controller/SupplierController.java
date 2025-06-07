@@ -26,8 +26,4 @@ public class SupplierController {
         return ResponseEntity.ok(supplier2Service.getSupplierItemById(id));
     }
 
-    @GetMapping("/supplier2/item")
-    public ResponseEntity<String> getSupplier2Items() {
-        return ResponseEntity.ok(supplier2Service.getSupplierItems());
-    }
 }

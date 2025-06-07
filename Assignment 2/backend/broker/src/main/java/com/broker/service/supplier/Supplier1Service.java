@@ -5,6 +5,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class Supplier1Service {
+    private static final String BASE_URL = "http://shubhamvmeurope.westeurope.cloudapp.azure.com:8080";
     private final RestTemplate restTemplate = new RestTemplate();
 
     public String getSupplierItemById(Integer id) {
