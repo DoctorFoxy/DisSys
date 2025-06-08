@@ -3,6 +3,7 @@ package com.broker.service.supplier;
 import com.broker.dto.Supplier2ItemDTO;
 import com.broker.dto.Supplier2PurchaseResponseDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -34,10 +35,6 @@ public class Supplier2Service {
             return restTemplate.postForObject(url, null, String.class, itemId);
     }
 
-//    public String buyItemWithQuantity(String itemId, int amount) {
-//        String url = BASE_URL + "/buy/" + itemId + "/" + amount;
-//        return restTemplate.postForObject(url, null, String.class);
-//    }
 
     public Supplier2PurchaseResponseDTO buyItemWithQuantity(String itemId, int amount) {
         String url = BASE_URL + "/buy/" + itemId + "/" + amount;
@@ -53,6 +50,54 @@ public class Supplier2Service {
             } catch (IOException ioException) {
                 throw new RuntimeException("Error parsing Supplier2 error response", ioException);
             }
+        }
+    }
+
+    public boolean prepareReservation(int reservationId, int itemId, int amount) {
+        String url = BASE_URL + "/prepare/" + reservationId + "/" + itemId + "/" + amount;
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(url, null, String.class);
+            String body = response.getBody();
+            return body != null && (body.contains("prepared") || body.contains("already prepared"));
+        } catch (HttpClientErrorException e) {
+            String err = e.getResponseBodyAsString();
+            System.out.println("Prepare failed: " + err);
+            return err.contains("already prepared");
+        } catch (Exception e) {
+            System.out.println("Prepare error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean commitReservation(int reservationId) {
+        String url = BASE_URL + "/commit/" + reservationId;
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(url, null, String.class);
+            String body = response.getBody();
+            return body != null && (body.contains("committed") || body.contains("already committed"));
+        } catch (HttpClientErrorException e) {
+            String err = e.getResponseBodyAsString();
+            System.out.println("Commit failed: " + err);
+            return err.contains("already committed");
+        } catch (Exception e) {
+            System.out.println("Commit error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean abortReservation(int reservationId) {
+        String url = BASE_URL + "/abort/" + reservationId;
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(url, null, String.class);
+            String body = response.getBody();
+            return body != null && (body.contains("aborted") || body.contains("already aborted"));
+        } catch (HttpClientErrorException e) {
+            String err = e.getResponseBodyAsString();
+            System.out.println("Abort failed: " + err);
+            return err.contains("already aborted");
+        } catch (Exception e) {
+            System.out.println("Abort error: " + e.getMessage());
+            return false;
         }
     }
 

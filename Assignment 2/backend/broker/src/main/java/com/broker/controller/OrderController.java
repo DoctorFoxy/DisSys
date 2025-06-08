@@ -48,4 +48,11 @@ public class OrderController {
         Order order = orderService.placeFullBrokerOrder(dto.getUserId(), dto.getDeliveryAddress(), dto.getItemId());
         return ResponseEntity.ok(order);
     }
+
+    // POST /api/orders/placeFullOrderAsync
+    @PostMapping("/placeFullOrderAsync")
+    public ResponseEntity<String> placeFullOrderAsync(@RequestBody OrderRequestDTO dto) {
+        orderService.placeFullBrokerOrderAsync(dto.getUserId(), dto.getDeliveryAddress(), dto.getItemId());
+        return ResponseEntity.accepted().body("Order is being processed asynchronously.");
+    }
 }

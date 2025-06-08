@@ -1,13 +1,21 @@
 package com.broker.dto;
 
 public class Supplier2PurchaseResponseDTO {
-    private String message;       // for success
-    private Integer remaining_stock;
-
-    private String error;         // for failure
+    private String message;        // for success or info (e.g., "Reservation committed")
+    private Integer remaining_stock; // only applies to /buy
+    private String error;          // for failure
 
     public boolean isSuccess() {
-        return message != null && message.equalsIgnoreCase("Purchase successful");
+        return message != null && (
+                message.toLowerCase().contains("successful") ||
+                        message.toLowerCase().contains("committed") ||
+                        message.toLowerCase().contains("prepared") ||
+                        message.toLowerCase().contains("already")
+        );
+    }
+
+    public boolean isError() {
+        return error != null && !error.isBlank();
     }
 
     // Getters and Setters
