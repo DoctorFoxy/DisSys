@@ -16,6 +16,7 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final ItemService itemService;
+
     public OrderController(OrderService orderService, ItemService itemService) {
         this.orderService = orderService;
         this.itemService = itemService;
@@ -42,20 +43,9 @@ public class OrderController {
     }
 
     // POST /api/orders
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
-        Order order = new Order();
-        order.setDeliveryAddress(orderRequestDTO.getDeliveryAddress());
-        order.setStatus(orderRequestDTO.getStatus());
-        order.setUserId(orderRequestDTO.getUserId());
-
-        // fetch item from DB using itemId
-        Item item = itemService.getItemById(orderRequestDTO.getItemId())
-                .orElseThrow(() -> new RuntimeException("Item not found"));
-
-        order.setItem(item);
-
-        Order savedOrder = orderService.saveOrder(order);
-        return ResponseEntity.ok(savedOrder);
+    @PostMapping("/placeFullOrder")
+    public ResponseEntity<Order> placeFullOrder(@RequestBody OrderRequestDTO dto) {
+        Order order = orderService.placeFullBrokerOrder(dto.getUserId(), dto.getDeliveryAddress(), dto.getItemId());
+        return ResponseEntity.ok(order);
     }
 }

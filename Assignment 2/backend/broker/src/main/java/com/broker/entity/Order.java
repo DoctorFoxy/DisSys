@@ -25,6 +25,12 @@ public class Order {
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 
-//    @Column(name = "time")
+    @Column(name = "supplier1_status")
+    private String supplier1Status;
+
+    @Column(name = "supplier2_status")
+    private String supplier2Status;
+
+//    @Column(name = "time") // done by the db itself
 //    private LocalDateTime time;
 }
