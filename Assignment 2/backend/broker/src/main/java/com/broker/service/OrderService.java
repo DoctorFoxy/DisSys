@@ -21,13 +21,15 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final Supplier1Service supplier1Service;
     private final Supplier2Service supplier2Service;
     private final ItemService itemService;
     @Value("${broker.order.timeout-minutes:15}")
     private int orderTimeoutMinutes;
 
-    public OrderService(OrderRepository orderRepository, Supplier2Service supplier2Service, ItemService itemService) {
+    public OrderService(OrderRepository orderRepository, Supplier1Service supplier1Service, Supplier2Service supplier2Service, ItemService itemService) {
         this.orderRepository = orderRepository;
+        this.supplier1Service = supplier1Service;
         this.supplier2Service = supplier2Service;
         this.itemService = itemService;
     }
@@ -109,45 +111,98 @@ public class OrderService {
         order.setSupplier2Status("pending");
         order = orderRepository.save(order);
 
-        int reservationId = order.getId(); // or use UUID
+        int reservationId = order.getId(); // Order ID for reservation
 
-        // Supplier1 simulated
-        System.out.println("Placing order with Supplier 1: itemId=" + item.getSupplier1ItemId()
-                + ", quantity=" + item.getSupplier1ItemQuantity());
-        order.setSupplier1Status("complete");
-
-        // Supplier2 prepare with timeout
-        Instant start = Instant.now();
         Duration timeout = Duration.ofMinutes(orderTimeoutMinutes);
+        Instant start = Instant.now();
+
+        boolean supplier1Ready = false;
         boolean supplier2Ready = false;
 
+        // Supplier 1 reservation loop
+//        while (Duration.between(start, Instant.now()).compareTo(timeout) < 0) {
+//            var response = supplier1Service.prepareReservation(
+//                    reservationId,
+//                    Integer.parseInt(item.getSupplier1ItemId()),
+//                    item.getSupplier1ItemQuantity());
+//
+//            if (response != null && response.isSuccess()) {
+//                supplier1Ready = true;
+//                break;
+//            }
+//
+//            try {
+//                Thread.sleep(60000); // Wait 1 minute
+//            } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//                break;
+//            }
+//        }
+//
+//        if (!supplier1Ready) {
+//            supplier1Service.abortReservation(reservationId);
+//            order.setSupplier1Status("failed");
+//            order.setStatus("failed");
+//            return orderRepository.save(order);
+//        }
+//
+//        order.setSupplier1Status("complete");
+//        orderRepository.save(order); // persist intermediate state
+
+        // === MOCK Supplier 1 === because supplier one not working yet
+        supplier1Ready = true; // pretend it's ready
+        order.setSupplier1Status("complete");
+        orderRepository.save(order);
+        // =======================
+
+        // Supplier 2 reservation loop
         while (Duration.between(start, Instant.now()).compareTo(timeout) < 0) {
-            supplier2Ready = supplier2Service.prepareReservation(
+            Supplier2PurchaseResponseDTO supplier2Response = supplier2Service.prepareReservation(
                     reservationId,
                     Integer.parseInt(item.getSupplier2ItemId()),
                     item.getSupplier2ItemQuantity());
 
-            if (supplier2Ready) break;
+            if (supplier2Response != null && supplier2Response.isSuccess()) {
+                supplier2Ready = true;
+                break;
+            }
 
             try {
-                Thread.sleep(60000); // wait 1 min
+                Thread.sleep(60000); // Wait 1 minute
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
             }
         }
 
-        if (supplier2Ready) {
-            supplier2Service.commitReservation(reservationId);
-            order.setSupplier2Status("complete");
-            order.setStatus("succeeded");
-        } else {
+        if (!supplier2Ready) {
             supplier2Service.abortReservation(reservationId);
+//            supplier1Service.abortReservation(reservationId); // rollback supplier 1
             order.setSupplier2Status("failed");
+            order.setSupplier1Status("rolledback");
             order.setStatus("failed");
-            System.out.println("Supplier2 reservation failed or timed out. reservationId=" + reservationId);
+            return orderRepository.save(order);
         }
 
+        Supplier2PurchaseResponseDTO supplier2CommitResponse = supplier2Service.commitReservation(reservationId);
+        if (supplier2CommitResponse != null && supplier2CommitResponse.isSuccess()) {
+//            boolean supplier1Commit = supplier1Service.finalizeReservation(reservationId).isSuccess();
+            boolean supplier1Commit = true; // mock success ////////////////////////////////////////////////////////////
+            if (supplier1Commit) {
+                order.setSupplier2Status("complete");
+                order.setStatus("succeeded");
+            } else {
+                supplier2Service.abortReservation(reservationId);
+                order.setSupplier1Status("failed");
+                order.setSupplier2Status("rolledback");
+                order.setStatus("failed");
+            }
+        } else {
+//            supplier1Service.abortReservation(reservationId);
+            order.setSupplier2Status("failed");
+            order.setSupplier1Status("rolledback");
+            order.setStatus("failed");
+        }
         return orderRepository.save(order);
     }
 }
