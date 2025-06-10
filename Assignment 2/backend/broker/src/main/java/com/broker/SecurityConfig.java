@@ -14,8 +14,14 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests((authorize) -> authorize
                                 .requestMatchers("/api/items").permitAll()
+
                                 .requestMatchers("/api/authdebug/public").permitAll()
                                 .requestMatchers("/api/authdebug/privatescoped").hasAuthority("SCOPE_read:orders")
+
+                                .requestMatchers("/api/orders").hasAuthority("SCOPE_read:orders")
+                                .requestMatchers("/api/orders/user").authenticated()
+                                .requestMatchers("/api/orders/*").hasAuthority("SCOPE_read:orders")
+
                                 .requestMatchers("/api/**").authenticated()
                                 .requestMatchers("/**").permitAll()
                 )
