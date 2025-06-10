@@ -5,7 +5,7 @@ export interface Order {
     deliveryAddress: string;
     status: string;
     item: Item;
-    userid: string;
+    userId: string;
     time: string;
     supplier1Status: string;
     supplier2Status: string;

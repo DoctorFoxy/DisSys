@@ -14,4 +14,8 @@ export class OrderService {
     fetchMyOrders(): Observable<Order[]> {
         return this.http.get<Order[]>('http://localhost:8080/api/orders/user');
     }
+
+    fetchAllOrders(): Observable<Order[]> {
+        return this.http.get<Order[]>('http://localhost:8080/api/orders');
+    }
 }
