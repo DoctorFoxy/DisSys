@@ -11,8 +11,6 @@ export class ItemService {
     private http = inject(HttpClient);
 
     fetchItems(): Observable<Item[]> {
-        console.log('fetch items');
-
         return this.http.get<Item[]>('http://localhost:8080/api/items');
     }
 }

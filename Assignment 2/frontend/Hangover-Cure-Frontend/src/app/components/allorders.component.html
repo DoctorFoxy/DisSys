@@ -3,9 +3,6 @@
 @if (!isLoggedIn()) {
     <p>Please login.</p>
 }
-@else if (!isAdmin()) {
-    <p>You do not have the right permissions to see this.</p>
-}
 @else {
 
     @if (orders().length == 0) {

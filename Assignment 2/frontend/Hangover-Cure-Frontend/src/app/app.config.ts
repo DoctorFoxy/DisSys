@@ -27,6 +27,12 @@ export const appConfig: ApplicationConfig = {
             allowAnonymous: true
           },
 
+          {
+            // Allow un-authenticated calls to /api/authdebug/public
+            uri: 'http://localhost:8080/api/authdebug/public',
+            allowAnonymous: true
+          },
+
           // Attach auth token to all other API calls
           'http://localhost:8080/api/*',
         ]

@@ -14,6 +14,5 @@ export class AllOrdersComponent {
     private orderService = inject(OrderService);
 
     isLoggedIn = this.userService.isLoggedIn;
-    isAdmin = this.userService.isAdmin;
     orders = this.orderService.allOrders;
 }
