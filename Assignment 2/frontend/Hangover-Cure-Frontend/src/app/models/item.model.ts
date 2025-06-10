@@ -1,11 +1,11 @@
 export interface Item {
     id: string;
-    itemid1: string;
-    itemqty1: number;
-    itemid2: string;
-    itemqty2: number;
-    price: number;
     title: string;
+    supplier1ItemId: string;
+    supplier1ItemQuantity: number;
+    supplier2ItemId: string;
+    supplier2ItemQuantity: number;
+    price: number;
     description: string;
-    imagelink: string;
+    imageLink: string;
 }
