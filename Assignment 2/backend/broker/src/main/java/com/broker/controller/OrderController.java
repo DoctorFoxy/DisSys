@@ -6,6 +6,8 @@ import com.broker.service.ItemService;
 import com.broker.service.OrderService;
 import com.broker.dto.OrderRequestDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,10 +38,11 @@ public class OrderController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // GET /api/orders/user/{user_id}
-    @GetMapping("/user/{user_id}")
-    public List<Order> getOrderByUserId(@PathVariable String user_id) {
-        return orderService.getOrderByUserId(user_id);
+    // GET /api/orders/user
+    @GetMapping("/user")
+    public List<Order> getOrderByUserId(@AuthenticationPrincipal Jwt token) {
+        String userId = token.getSubject();
+        return orderService.getOrderByUserId(userId);
     }
 
     // POST /api/orders
