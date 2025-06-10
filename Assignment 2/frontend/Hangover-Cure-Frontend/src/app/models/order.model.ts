@@ -1,14 +1,12 @@
-export enum OrderStatus {
-    Ongoing,
-    Succeeded,
-    Failed,
-}
+import { Item } from "./item.model";
 
 export interface Order {
     id: number;
-    itemid: number;
-    userid: number;
     deliveryAddress: string;
-    status: OrderStatus;
-    time: Date;
+    status: string;
+    item: Item;
+    userid: string;
+    time: string;
+    supplier1Status: string;
+    supplier2Status: string;
 }
