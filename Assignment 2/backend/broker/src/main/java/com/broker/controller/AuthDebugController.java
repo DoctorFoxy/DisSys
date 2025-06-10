@@ -3,9 +3,8 @@
 package com.broker.controller;
 
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,21 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthDebugController {
 
     @GetMapping("/public")
-    @CrossOrigin("*")
-    public ResponseEntity<String> getPublicResponse() {
-        return ResponseEntity.ok("public response");
+    public String getPublicResponse() {
+        return "public response";
     }
 
     @GetMapping("/private")
-    public ResponseEntity<String> getPrivateResponse() {
-        return ResponseEntity.ok("private response");
+    public String getPrivateResponse(@AuthenticationPrincipal Jwt token) {
+        String userId = token.getSubject();
+        return "Welcome " + userId;
     }
-
 
     // Only allowed for access tokens with manager permissions
     @GetMapping("/privatescoped")
-    public ResponseEntity<String> getPrivateScopedResponse() {
-        return ResponseEntity.ok("private scoped response");
+    public String getPrivateScopedResponse(@AuthenticationPrincipal Jwt token) {
+        String userId = token.getSubject();
+        return "You're a manager, " + userId;
     }
 
 }
