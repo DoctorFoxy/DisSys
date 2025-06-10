@@ -3,7 +3,7 @@ package com.broker.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-//import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "orders")
@@ -31,6 +31,6 @@ public class Order {
     @Column(name = "supplier2_status")
     private String supplier2Status;
 
-//    @Column(name = "time") // done by the db itself
-//    private LocalDateTime time;
+    @Column(name = "time") // done by the db itself
+    private LocalDateTime time;
 }
