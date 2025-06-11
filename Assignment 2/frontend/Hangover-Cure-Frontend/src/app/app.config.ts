@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
       authorizationParams: {
         redirect_uri: window.location.origin,
         audience: 'Backend',
-        scope: 'openid profile read:orders'
+        scope: 'openid profile read:orders',
       },
       httpInterceptor: {
         allowedList: [

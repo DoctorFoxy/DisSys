@@ -22,7 +22,7 @@ export class UserService {
     }
 
     logout() {
-        this.auth0Service.logout();
+        this.auth0Service.logout({ logoutParams: { returnTo: window.location.origin } });
     }
 
 }
