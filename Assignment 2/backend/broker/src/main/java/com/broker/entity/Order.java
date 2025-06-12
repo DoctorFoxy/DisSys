@@ -31,6 +31,6 @@ public class Order {
     @Column(name = "supplier2_status")
     private String supplier2Status;
 
-    @Column(name = "time") // done by the db itself
+    @Column(name = "time")
     private LocalDateTime time;
 }

@@ -24,7 +24,7 @@ public class Supplier1Service {
         return postForResponse(url);
     }
 
-    public Supplier1PurchaseResponseDTO finalizeReservation(int reservationId) {
+    public Supplier1PurchaseResponseDTO commitReservation(int reservationId) {
         String url = BASE_URL + "/api/medicins/finalize/" + reservationId;
         return postForResponse(url);
     }

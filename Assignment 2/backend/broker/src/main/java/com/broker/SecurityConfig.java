@@ -2,6 +2,7 @@ package com.broker;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,7 +19,8 @@ public class SecurityConfig {
                                 .requestMatchers("/api/authdebug/public").permitAll()
                                 .requestMatchers("/api/authdebug/privatescoped").hasAuthority("SCOPE_read:orders")
 
-                                .requestMatchers("/api/orders").hasAuthority("SCOPE_read:orders")
+                                .requestMatchers(HttpMethod.GET, "/api/orders").hasAuthority("SCOPE_read:orders")
+                                .requestMatchers(HttpMethod.POST, "/api/orders").authenticated()
                                 .requestMatchers("/api/orders/user").authenticated()
                                 .requestMatchers("/api/orders/*").hasAuthority("SCOPE_read:orders")
 

@@ -1,10 +1,9 @@
 package com.broker.controller;
 
-import com.broker.entity.Item;
 import com.broker.entity.Order;
 import com.broker.service.ItemService;
 import com.broker.service.OrderService;
-import com.broker.dto.OrderRequestDTO;
+import com.broker.dto.CreateOrderDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -30,6 +29,19 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
+    // POST /api/orders
+    @PostMapping
+    public Order createOrder(@RequestBody CreateOrderDTO dto, @AuthenticationPrincipal Jwt token) {
+        String userId = token.getSubject();
+
+        var newOrder = new OrderService.CreateOrder();
+        newOrder.setDeliveryAddress(dto.getDeliveryAddress());
+        newOrder.setItemId(dto.getItemId());
+        newOrder.setUserId(userId);
+
+        return orderService.createOrder(newOrder);
+    }
+
     // GET /api/orders/{id}
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Integer id) {
@@ -43,19 +55,5 @@ public class OrderController {
     public List<Order> getOrderByUserId(@AuthenticationPrincipal Jwt token) {
         String userId = token.getSubject();
         return orderService.getOrderByUserId(userId);
-    }
-
-    // POST /api/orders
-    @PostMapping("/placeFullOrder")
-    public ResponseEntity<Order> placeFullOrder(@RequestBody OrderRequestDTO dto) {
-        Order order = orderService.placeFullBrokerOrder(dto.getUserId(), dto.getDeliveryAddress(), dto.getItemId());
-        return ResponseEntity.ok(order);
-    }
-
-    // POST /api/orders/placeFullOrderAsync
-    @PostMapping("/placeFullOrderAsync")
-    public ResponseEntity<String> placeFullOrderAsync(@RequestBody OrderRequestDTO dto) {
-        orderService.placeFullBrokerOrderAsync(dto.getUserId(), dto.getDeliveryAddress(), dto.getItemId());
-        return ResponseEntity.accepted().body("Order is being processed asynchronously.");
     }
 }

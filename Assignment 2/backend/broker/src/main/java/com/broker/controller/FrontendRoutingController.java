@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class FrontendRoutingController implements ErrorController {
+
     // Our routing needs to happen in 3 steps:
     //
     // 1: React to specific endpoints (like /api/items)
