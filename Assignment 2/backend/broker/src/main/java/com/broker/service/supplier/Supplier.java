@@ -4,7 +4,7 @@ import com.broker.dto.Supplier1PurchaseResponseDTO;
 
 public interface Supplier {
 
-    boolean prepareReservation(int reservationId, int itemId, int quantity);
+    boolean prepareReservation(int reservationId, String itemId, int quantity);
 
     void commitReservation(int reservationId);
 

@@ -1,29 +1,17 @@
 package com.broker.service;
 
-import com.broker.dto.CreateOrderDTO;
 import com.broker.entity.Item;
 import com.broker.entity.Order;
 import com.broker.repository.OrderRepository;
-import com.broker.dto.Supplier1PurchaseResponseDTO;
-import com.broker.dto.Supplier2PurchaseResponseDTO;
 import com.broker.service.supplier.Supplier;
-import com.broker.service.supplier.Supplier1Service;
-import com.broker.service.supplier.Supplier2Service;
 import com.broker.service.supplier.WorkingSupplierMockup;
 import lombok.Data;
-import org.apache.coyote.BadRequestException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.scheduling.annotation.Async;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class OrderService {
@@ -39,12 +27,14 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ItemService itemService; // TODO: This only has 1 usage, maybe consider getting rid of it
     private final Supplier supplier1;
+    private final Supplier supplier2;
 
 
-    public OrderService(OrderRepository orderRepository, ItemService itemService, WorkingSupplierMockup supplier1) {
+    public OrderService(OrderRepository orderRepository, ItemService itemService, WorkingSupplierMockup supplier1, WorkingSupplierMockup supplier2) {
         this.orderRepository = orderRepository;
         this.itemService = itemService;
         this.supplier1 = supplier1;
+        this.supplier2 = supplier2;
     }
 
     public List<Order> getAllOrders() {
@@ -75,8 +65,105 @@ public class OrderService {
         newOrder.setSupplier2Status(SUPPLIERSTATUS_NOANSWER);
         newOrder.setTime(LocalDateTime.now());
 
-        newOrder = orderRepository.save(newOrder);
-        return newOrder;
+        Order ongoingOrder = orderRepository.save(newOrder);
+
+        Order processedOrder = this.processOngoingOrder(ongoingOrder);
+        return processedOrder;
+    }
+
+    public void processOngoingOrders() {
+        // Check for any ongoing orders and process them
+        List<Order> ongoingOrders = orderRepository.findAllByStatus(ORDERSTATUS_ONGOING);
+        ongoingOrders.forEach(this::processOngoingOrder);
+    }
+
+    private Order processOngoingOrder(Order order) {
+
+        // Check if supplier1 has answered and if not, try to reserve and react to the response
+        boolean s1_isNoAnswer = order.getSupplier1Status().equals(SUPPLIERSTATUS_NOANSWER);
+        if (s1_isNoAnswer) {
+            // Try to reserve supplier1
+            boolean reservation_success = supplier1.prepareReservation(
+                    order.getId(),
+                    order.getItem().getSupplier1ItemId(),
+                    order.getItem().getSupplier1ItemQuantity());
+
+            if (reservation_success) {
+                // Mark supplier1 as reserved
+                order.setSupplier1Status(SUPPLIERSTATUS_RESERVED);
+
+
+                // If all suppliers are now reserved, then commit order
+                boolean s1_isReserved = order.getSupplier1Status().equals(SUPPLIERSTATUS_RESERVED);
+                boolean s2_isReserved = order.getSupplier2Status().equals(SUPPLIERSTATUS_RESERVED);
+                if (s1_isReserved && s2_isReserved) {
+                    return this.commitOrder(order);
+                } else {  // otherwise, save in DB that supplier1 is reserved
+                    order = orderRepository.save(order);
+                }
+            } else {
+                // Abort order
+                order.setSupplier1Status(SUPPLIERSTATUS_DECLINED);
+                return this.abortOrder(order);
+            }
+        }
+
+
+        // Same logic again for supplier2
+        // Check if supplier2 has answered and if not, try to reserve and react to the response
+        boolean s2_isNoAnswer = order.getSupplier2Status().equals(SUPPLIERSTATUS_NOANSWER);
+        if (s2_isNoAnswer) {
+            // Try to reserve supplier2
+            boolean reservation_success = supplier2.prepareReservation(
+                    order.getId(),
+                    order.getItem().getSupplier2ItemId(),
+                    order.getItem().getSupplier2ItemQuantity());
+
+            if (reservation_success) {
+                // Mark supplier2 as reserved
+                order.setSupplier2Status(SUPPLIERSTATUS_RESERVED);
+
+
+                // If all suppliers are now reserved, then commit order
+                boolean s1_isReserved = order.getSupplier1Status().equals(SUPPLIERSTATUS_RESERVED);
+                boolean s2_isReserved = order.getSupplier2Status().equals(SUPPLIERSTATUS_RESERVED);
+                if (s1_isReserved && s2_isReserved) {
+                    return this.commitOrder(order);
+                } else {  // otherwise, save in DB that supplier2 is reserved
+                    order = orderRepository.save(order);
+                }
+            } else {
+                // Abort order
+                order.setSupplier2Status(SUPPLIERSTATUS_DECLINED);
+                return this.abortOrder(order);
+            }
+        }
+
+        return order;
+    }
+
+    private Order commitOrder(Order order) {
+        // Save in DB first
+        order.setStatus(ORDERSTATUS_SUCCEEDED);
+        order = orderRepository.save(order);
+
+        // Notify suppliers
+        supplier1.commitReservation(order.getId());
+        supplier2.commitReservation(order.getId());
+
+        return order;
+    }
+
+    private Order abortOrder(Order order) {
+        // Save in DB first
+        order.setStatus(ORDERSTATUS_FAILED);
+        order = orderRepository.save(order);
+
+        // Notify suppliers
+        supplier1.abortReservation(order.getId());
+        supplier2.abortReservation(order.getId());
+
+        return order;
     }
 
     @Data

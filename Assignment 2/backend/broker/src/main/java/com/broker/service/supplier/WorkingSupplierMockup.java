@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 public class WorkingSupplierMockup implements Supplier {
 
     @Override
-    public boolean prepareReservation(int reservationId, int itemId, int quantity) {
-        return false;
+    public boolean prepareReservation(int reservationId, String itemId, int quantity) {
+        return true;
     }
 
     @Override
