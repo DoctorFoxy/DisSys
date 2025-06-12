@@ -1,6 +1,6 @@
 //TODO: Remove this later
 
-package com.broker.controller;
+package com.broker.controller.debug;
 
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

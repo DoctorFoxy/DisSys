@@ -1,4 +1,4 @@
-package com.broker.controller;
+package com.broker.controller.debug;
 //WILL BE REMOVED AT THE END
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,11 +7,11 @@ import com.broker.service.supplier.Supplier2Service;
 
 @RestController
 @RequestMapping("/api/suppliers")
-public class SupplierController {
+public class SupplierDebugController {
     private final Supplier1Service supplier1Service;
     private final Supplier2Service supplier2Service;
 
-    public SupplierController(Supplier1Service s1, Supplier2Service s2) {
+    public SupplierDebugController(Supplier1Service s1, Supplier2Service s2) {
         this.supplier1Service = s1;
         this.supplier2Service = s2;
     }
