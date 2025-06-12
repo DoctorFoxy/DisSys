@@ -1,12 +1,17 @@
 package com.broker.service.supplier;
 
-import com.broker.dto.Supplier1PurchaseResponseDTO;
-
 public interface Supplier {
 
-    boolean prepareReservation(int reservationId, String itemId, int quantity);
+    boolean prepareReservation(int reservationId, String itemId, int quantity) throws TimeoutException;
 
-    void commitReservation(int reservationId);
+    void commitReservation(int reservationId) throws TimeoutException;
 
-    void abortReservation(int reservationId);
+    void abortReservation(int reservationId) throws TimeoutException;
+
+    /**
+     * Thrown, when the supplier doesn't respond.
+     */
+    class TimeoutException extends Exception {
+
+    }
 }

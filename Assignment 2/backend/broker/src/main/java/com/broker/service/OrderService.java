@@ -3,9 +3,12 @@ package com.broker.service;
 import com.broker.entity.Item;
 import com.broker.entity.Order;
 import com.broker.repository.OrderRepository;
+import com.broker.service.supplier.FailingSupplierMockup;
 import com.broker.service.supplier.Supplier;
 import com.broker.service.supplier.WorkingSupplierMockup;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +26,9 @@ public class OrderService {
     private static final String SUPPLIERSTATUS_RESERVED = "reserved";
     private static final String SUPPLIERSTATUS_DECLINED = "declined";
 
+    @Value("${broker.order.timeout-minutes}")
+    private int ORDER_TIMEOUT_DURATION_MINUTES;
+
 
     private final OrderRepository orderRepository;
     private final ItemService itemService; // TODO: This only has 1 usage, maybe consider getting rid of it
@@ -30,7 +36,7 @@ public class OrderService {
     private final Supplier supplier2;
 
 
-    public OrderService(OrderRepository orderRepository, ItemService itemService, WorkingSupplierMockup supplier1, WorkingSupplierMockup supplier2) {
+    public OrderService(OrderRepository orderRepository, ItemService itemService, FailingSupplierMockup supplier1, WorkingSupplierMockup supplier2) {
         this.orderRepository = orderRepository;
         this.itemService = itemService;
         this.supplier1 = supplier1;
@@ -71,40 +77,55 @@ public class OrderService {
         return processedOrder;
     }
 
+    @Scheduled(fixedRateString = "${broker.order.retry-interval-ms}")
     public void processOngoingOrders() {
         // Check for any ongoing orders and process them
         List<Order> ongoingOrders = orderRepository.findAllByStatus(ORDERSTATUS_ONGOING);
+        System.out.println("Retrying " + ongoingOrders.size() + " ongoing orders.");
         ongoingOrders.forEach(this::processOngoingOrder);
+
     }
 
     private Order processOngoingOrder(Order order) {
+
+        // If order is expired, then abort
+        LocalDateTime expiresAt = order.getTime().plusMinutes(ORDER_TIMEOUT_DURATION_MINUTES);
+        boolean isExpired = LocalDateTime.now().isAfter(expiresAt);
+        if(isExpired) {
+            return this.abortOrder(order);
+        }
+
 
         // Check if supplier1 has answered and if not, try to reserve and react to the response
         boolean s1_isNoAnswer = order.getSupplier1Status().equals(SUPPLIERSTATUS_NOANSWER);
         if (s1_isNoAnswer) {
             // Try to reserve supplier1
-            boolean reservation_success = supplier1.prepareReservation(
-                    order.getId(),
-                    order.getItem().getSupplier1ItemId(),
-                    order.getItem().getSupplier1ItemQuantity());
+            try {
+                boolean reservation_success = reservation_success = supplier1.prepareReservation(
+                        order.getId(),
+                        order.getItem().getSupplier1ItemId(),
+                        order.getItem().getSupplier1ItemQuantity());
 
-            if (reservation_success) {
-                // Mark supplier1 as reserved
-                order.setSupplier1Status(SUPPLIERSTATUS_RESERVED);
+                if (reservation_success) {
+                    // Mark supplier1 as reserved
+                    order.setSupplier1Status(SUPPLIERSTATUS_RESERVED);
 
 
-                // If all suppliers are now reserved, then commit order
-                boolean s1_isReserved = order.getSupplier1Status().equals(SUPPLIERSTATUS_RESERVED);
-                boolean s2_isReserved = order.getSupplier2Status().equals(SUPPLIERSTATUS_RESERVED);
-                if (s1_isReserved && s2_isReserved) {
-                    return this.commitOrder(order);
-                } else {  // otherwise, save in DB that supplier1 is reserved
-                    order = orderRepository.save(order);
+                    // If all suppliers are now reserved, then commit order
+                    boolean s1_isReserved = order.getSupplier1Status().equals(SUPPLIERSTATUS_RESERVED);
+                    boolean s2_isReserved = order.getSupplier2Status().equals(SUPPLIERSTATUS_RESERVED);
+                    if (s1_isReserved && s2_isReserved) {
+                        return this.commitOrder(order);
+                    } else {  // otherwise, save in DB that supplier1 is reserved
+                        order = orderRepository.save(order);
+                    }
+                } else {
+                    // Abort order
+                    order.setSupplier1Status(SUPPLIERSTATUS_DECLINED);
+                    return this.abortOrder(order);
                 }
-            } else {
-                // Abort order
-                order.setSupplier1Status(SUPPLIERSTATUS_DECLINED);
-                return this.abortOrder(order);
+            } catch (Supplier.TimeoutException e) {
+                // If supplier doesn't respond, do nothing as this function will be recalled later
             }
         }
 
@@ -114,28 +135,33 @@ public class OrderService {
         boolean s2_isNoAnswer = order.getSupplier2Status().equals(SUPPLIERSTATUS_NOANSWER);
         if (s2_isNoAnswer) {
             // Try to reserve supplier2
-            boolean reservation_success = supplier2.prepareReservation(
-                    order.getId(),
-                    order.getItem().getSupplier2ItemId(),
-                    order.getItem().getSupplier2ItemQuantity());
+            try {
+                boolean reservation_success = supplier2.prepareReservation(
+                        order.getId(),
+                        order.getItem().getSupplier2ItemId(),
+                        order.getItem().getSupplier2ItemQuantity());
 
-            if (reservation_success) {
-                // Mark supplier2 as reserved
-                order.setSupplier2Status(SUPPLIERSTATUS_RESERVED);
+                if (reservation_success) {
+                    // Mark supplier2 as reserved
+                    order.setSupplier2Status(SUPPLIERSTATUS_RESERVED);
 
 
-                // If all suppliers are now reserved, then commit order
-                boolean s1_isReserved = order.getSupplier1Status().equals(SUPPLIERSTATUS_RESERVED);
-                boolean s2_isReserved = order.getSupplier2Status().equals(SUPPLIERSTATUS_RESERVED);
-                if (s1_isReserved && s2_isReserved) {
-                    return this.commitOrder(order);
-                } else {  // otherwise, save in DB that supplier2 is reserved
-                    order = orderRepository.save(order);
+                    // If all suppliers are now reserved, then commit order
+                    boolean s1_isReserved = order.getSupplier1Status().equals(SUPPLIERSTATUS_RESERVED);
+                    boolean s2_isReserved = order.getSupplier2Status().equals(SUPPLIERSTATUS_RESERVED);
+                    if (s1_isReserved && s2_isReserved) {
+                        return this.commitOrder(order);
+                    } else {  // otherwise, save in DB that supplier2 is reserved
+                        order = orderRepository.save(order);
+                    }
+                } else {
+                    // Abort order
+                    order.setSupplier2Status(SUPPLIERSTATUS_DECLINED);
+                    return this.abortOrder(order);
                 }
-            } else {
-                // Abort order
-                order.setSupplier2Status(SUPPLIERSTATUS_DECLINED);
-                return this.abortOrder(order);
+            }
+            catch (Supplier.TimeoutException e) {
+                // If supplier doesn't respond, do nothing as this function will be recalled later
             }
         }
 
@@ -148,8 +174,12 @@ public class OrderService {
         order = orderRepository.save(order);
 
         // Notify suppliers
-        supplier1.commitReservation(order.getId());
-        supplier2.commitReservation(order.getId());
+        try {
+            supplier1.commitReservation(order.getId());
+            supplier2.commitReservation(order.getId());
+        } catch (Supplier.TimeoutException e) {
+            // Our policy is to not care if the supplier doesn't respond to commit/abort
+        }
 
         return order;
     }
@@ -160,8 +190,12 @@ public class OrderService {
         order = orderRepository.save(order);
 
         // Notify suppliers
-        supplier1.abortReservation(order.getId());
-        supplier2.abortReservation(order.getId());
+        try {
+            supplier1.abortReservation(order.getId());
+            supplier2.abortReservation(order.getId());
+        } catch (Supplier.TimeoutException e) {
+            // Our policy is to not care if the supplier doesn't respond to commit/abort
+        }
 
         return order;
     }
