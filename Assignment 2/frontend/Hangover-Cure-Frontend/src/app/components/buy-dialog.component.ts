@@ -37,11 +37,19 @@ export class BuyDialogComponent {
   
   state: 'init' | 'loading' | 'order placed' | 'order failed' = 'init';
 
-  order(): void {
+  orderNormal(): void {
+    this.order(false);
+  }
+
+  orderWithFailedFinalization(): void {
+    this.order(true)
+  }
+
+  private order(simulateNoFinalizationMessage: boolean): void {
     this.state = 'loading';
     this.dialogRef.disableClose = true;
 
-    this.orderService.createOrder(this.deliveryAddress(), this.item.id).subscribe({
+    this.orderService.createOrder(this.deliveryAddress(), this.item.id, simulateNoFinalizationMessage).subscribe({
       next: () => { this.state = 'order placed'; this.dialogRef.disableClose = false; },
       error: () => { this.state = 'order failed'; this.dialogRef.disableClose = false; }
     })

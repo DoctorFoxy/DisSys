@@ -11,7 +11,8 @@
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-button (click)="order()" [disabled]="buyButtonDisabled()">Order for {{ item.price }}€</button>
+    <button mat-button (click)="orderNormal()" [disabled]="buyButtonDisabled()">Order for {{ item.price }}€</button>
+    <button mat-button (click)="orderWithFailedFinalization()" [disabled]="buyButtonDisabled()">DEBUG: order without finalization message</button>
     <button mat-button mat-dialog-close>Cancel</button>
   </mat-dialog-actions>
 }

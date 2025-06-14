@@ -20,8 +20,8 @@ export class OrderService {
         return this.http.get<Order[]>(`${environment.apiDomain}/api/orders`);
     }
 
-    createOrder(deliveryAddress: string, itemId: string): Observable<Order> {
-        const body = { deliveryAddress, itemId };
+    createOrder(deliveryAddress: string, itemId: string, simulateNoFinalizationMessage: boolean): Observable<Order> {
+        const body = { deliveryAddress, itemId, simulateNoFinalizationMessage };
         return this.http.post<Order>(`${environment.apiDomain}/api/orders`, body);
     }
 }
