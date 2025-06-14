@@ -1,15 +1,38 @@
 <h2 mat-dialog-title>Order {{item.title}}</h2>
 
-<mat-dialog-content>
-  <p>An order can take up to 15 minutes to process.</p>
+@if (state == 'init') {
+  <mat-dialog-content>
+    <p>An order can take up to 15 minutes to process.</p>
 
-  <mat-form-field>
-    <mat-label>Delivery Address</mat-label>
-    <input matInput [(ngModel)]="deliveryAddress" width="120"/>
-  </mat-form-field>
-</mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Delivery Address</mat-label>
+      <input matInput [(ngModel)]="deliveryAddress" width="120"/>
+    </mat-form-field>
+  </mat-dialog-content>
 
-<mat-dialog-actions>
-    <button mat-button (click)="order()">Order for {{ item.price }}€</button>
+  <mat-dialog-actions>
+    <button mat-button (click)="order()" [disabled]="buyButtonDisabled()">Order for {{ item.price }}€</button>
     <button mat-button mat-dialog-close>Cancel</button>
-</mat-dialog-actions>
+  </mat-dialog-actions>
+}
+@else if (state == 'loading') {
+  <mat-dialog-content>
+    <p>Loading...</p>
+  </mat-dialog-content>
+}
+@else if (state == 'order placed') {
+  <mat-dialog-content>
+    <p>Order is processing. It can take up to 15 minutes. Check your status under My Orders</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+}
+@else if (state == 'order failed') {
+  <mat-dialog-content>
+    <p>Order placement failed. Please try again later.</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+}
