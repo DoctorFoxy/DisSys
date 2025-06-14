@@ -4,6 +4,7 @@ import { authHttpInterceptorFn, provideAuth0 } from '@auth0/auth0-angular';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,18 +24,18 @@ export const appConfig: ApplicationConfig = {
         allowedList: [
           {
             // Allow un-authenticated calls to /api/items
-            uri: 'http://localhost:8080/api/items',
+            uri: `${environment.apiDomain}/api/items`,
             allowAnonymous: true
           },
 
           {
             // Allow un-authenticated calls to /api/authdebug/public
-            uri: 'http://localhost:8080/api/authdebug/public',
+            uri: `${environment.apiDomain}/api/authdebug/public`,
             allowAnonymous: true
           },
 
           // Attach auth token to all other API calls
-          'http://localhost:8080/api/*',
+          `${environment.apiDomain}/api/*` ,
         ]
       }
     }),

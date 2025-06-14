@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { AuthService } from "@auth0/auth0-angular";
+import { environment } from "../../environments/environment";
 
 @Component({
     selector: 'authdebug',
@@ -16,15 +17,15 @@ export class AuthdebugComponent {
     private auth0Service = inject(AuthService)
 
     requestPublic() {
-        this.http.get('http://localhost:8080/api/authdebug/public').subscribe();
+        this.http.get(`${environment.apiDomain}/api/authdebug/public`).subscribe();
     }
 
     requestPrivate() {
-        this.http.get('http://localhost:8080/api/authdebug/private').subscribe();
+        this.http.get(`${environment.apiDomain}/api/authdebug/private`).subscribe();
     }
 
     requestPrivateScoped() {
-        this.http.get('http://localhost:8080/api/authdebug/privatescoped').subscribe();
+        this.http.get(`${environment.apiDomain}/api/authdebug/privatescoped`).subscribe();
     }
 
     getSilentToken() {

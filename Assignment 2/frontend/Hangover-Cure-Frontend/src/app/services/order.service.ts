@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { map, mergeMap, Observable, throwError, timer } from "rxjs";
 import { Item } from "../models/item.model";
 import { Order } from "../models/order.model";
+import { environment } from "../../environments/environment";
 
 
 @Injectable({
@@ -12,15 +13,15 @@ export class OrderService {
     private http = inject(HttpClient);
     
     fetchMyOrders(): Observable<Order[]> {
-        return this.http.get<Order[]>('http://localhost:8080/api/orders/user');
+        return this.http.get<Order[]>(`${environment.apiDomain}/api/orders/user`);
     }
 
     fetchAllOrders(): Observable<Order[]> {
-        return this.http.get<Order[]>('http://localhost:8080/api/orders');
+        return this.http.get<Order[]>(`${environment.apiDomain}/api/orders`);
     }
 
     createOrder(deliveryAddress: string, itemId: string): Observable<Order> {
         const body = { deliveryAddress, itemId };
-        return this.http.post<Order>('http://localhost:8080/api/orders', body);
+        return this.http.post<Order>(`${environment.apiDomain}/api/orders`, body);
     }
 }
