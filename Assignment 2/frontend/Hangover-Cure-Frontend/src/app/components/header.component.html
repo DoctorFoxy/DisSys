@@ -1,11 +1,11 @@
 <header>
-    <mat-toolbar style="display: flex; flex-flow: row nowrap; justify-content: space-between;">
+    <mat-toolbar style="display: flex; flex-flow: row wrap; justify-content: space-between;">
         <h1>ULTIMATE HANGOVER EMERGENCY RECOVERY DELIVERY SERVICE</h1>
         
         
         @if (isLoggedIn()) {
             <span>
-                Hi {{ user()?.name }}!
+                Hi {{ user()?.nickname }}!
                 <button mat-icon-button matTooltip="Logout" (click)="logout()">
                     <mat-icon>logout</mat-icon>
                 </button>

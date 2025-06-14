@@ -1,7 +1,12 @@
 <h2>Browse Products</h2>
 
-<div style="display: flex; flex-direction: column; gap: 10px">
-@for (item of items; track item.id) {
-    <item [item]="item"></item>
+<div style="display: flex; flex-flow: row wrap; gap: 10px;">
+@if (items$ | async; as items) {
+    @for (item of items; track item.id) {
+        <item [item]="item"></item>
+    }
+}
+@else {
+    <p>Loading...</p>
 }
 </div>

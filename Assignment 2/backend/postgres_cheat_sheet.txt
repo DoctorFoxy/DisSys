@@ -1,0 +1,44 @@
+
+PostgreSQL Terminal Commands Cheat Sheet
+========================================
+
+✅ 1. Connect to PostgreSQL
+---------------------------
+psql -U your_username -d your_database
+Example:
+psql -U brokeruser -d brokerdb -h localhost
+psql -h shubhamuse.eastus.cloudapp.azure.com -p 5432 -U brokeruser -d brokerdb
+
+password: brokerpass
+
+✅ 2. List all databases
+------------------------
+\l
+
+✅ 3. Connect to a specific database (from within psql)
+--------------------------------------------------------
+\c your_database
+
+✅ 4. List all tables
+---------------------
+\dt
+or
+\dt public.*
+
+✅ 5. View columns and data types of a table
+-------------------------------------------
+\d table_name
+Example:
+\d item
+
+✅ 6. View contents of a table
+------------------------------
+SELECT * FROM table_name;
+Example:
+SELECT * FROM item;
+To limit output:
+SELECT * FROM item LIMIT 10;
+
+✅ 7. Quit the psql terminal
+----------------------------
+\q

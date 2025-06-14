@@ -1,0 +1,66 @@
+# 🔄 PostgreSQL Dump & Restore with Password
+
+## 📦 1. Export the database as a .dump file
+Use this on the source machine (with PostgreSQL installed):
+
+```bash
+pg_dump -U brokeruser -h localhost -p 5432 -d brokerdb -F c -f brokerdb_backup_dump
+```
+
+This command creates a compressed custom-format dump of `brokerdb`.
+
+---
+
+## 💾 2. Create a new database on the target machine
+First, create the database (use `createdb` or from `psql`):
+
+```bash
+createdb -U postgres -h localhost -p 5432 brokerdb
+```
+
+Then restore the database using the `.dump` file:
+
+```bash
+pg_restore -U postgres -h localhost -p 5432 -d brokerdb brokerdb_backup_dump
+```
+
+Make sure to restore as a superuser (like `postgres`) if needed.
+
+---
+
+## 🔐 3. Add user and password
+If `brokeruser` doesn't exist yet, create it:
+
+```bash
+createuser -U postgres -h localhost -p 5432 brokeruser
+```
+
+Then connect with psql:
+
+```bash
+psql -U postgres -h localhost -p 5432
+```
+
+Inside psql:
+
+```sql
+ALTER USER brokeruser WITH PASSWORD 'brokerpass';
+GRANT ALL PRIVILEGES ON DATABASE brokerdb TO brokeruser;
+```
+
+---
+
+## 📁 Optional: Add .pgpass file for passwordless login
+Create `~/.pgpass` (Linux/macOS) or `%APPDATA%\postgresql\pgpass.conf` (Windows) with this content:
+
+```
+localhost:5432:brokerdb:brokeruser:your_secure_password
+```
+
+Make sure it has the correct permissions:
+
+```bash
+chmod 600 ~/.pgpass
+```
+
+Now, `pg_dump`, `psql`, and `pg_restore` won't ask for a password.

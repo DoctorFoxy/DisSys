@@ -1,14 +1,19 @@
 import { Component, inject } from "@angular/core";
 import { ItemService } from "../services/item.service";
 import { ItemComponent } from "./item.component";
+import { Observable } from "rxjs";
+import { Item } from "../models/item.model";
+import { AsyncPipe } from "@angular/common";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
     templateUrl: './home.component.html',
     imports: [
-        ItemComponent
-    ],
+    AsyncPipe,
+    ItemComponent
+],
 })
 export class HomeComponent {
     private itemService = inject(ItemService);
-    items = this.itemService.fetchItems();
+    items$: Observable<Item[]> = this.itemService.fetchItems();
 }
