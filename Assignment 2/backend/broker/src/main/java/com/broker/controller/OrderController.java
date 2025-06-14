@@ -3,6 +3,8 @@ package com.broker.controller;
 import com.broker.entity.Order;
 import com.broker.service.OrderService;
 import com.broker.dto.CreateOrderDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -16,6 +18,7 @@ import java.util.UUID;
 @RequestMapping("/api/orders")
 public class OrderController {
     private final OrderService orderService;
+    private final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
@@ -59,7 +62,7 @@ public class OrderController {
     // GET /api/orders/{id}/status
     @GetMapping("/status/{id}")
     public ResponseEntity<String> getOrderStatus(@PathVariable UUID id) {
-        System.out.println("status poll endpoint called for " + id);
+        this.logger.info("status poll endpoint called for {}", id);
         return orderService.getOrderStatusById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
