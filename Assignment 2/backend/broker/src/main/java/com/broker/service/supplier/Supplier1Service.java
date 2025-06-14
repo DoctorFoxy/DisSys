@@ -7,14 +7,16 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.RestClientException;
 
+import java.util.UUID;
+
 @Service
 public class Supplier1Service implements Supplier {
     private static final String BASE_URL = "http://shubhamvmeurope.westeurope.cloudapp.azure.com:8080";
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public boolean prepareReservation(int orderId, String supplierItemId, int quantity) throws TimeoutException {
-        String url = String.format("%s/api/medicins/prepare/%d/%s/%d", BASE_URL, orderId, supplierItemId, quantity);
+    public boolean prepareReservation(UUID orderId, String supplierItemId, int quantity) throws TimeoutException {
+        String url = String.format("%s/api/medicins/prepare/%s/%s/%d", BASE_URL, orderId.toString(), supplierItemId, quantity);
 
         try {
             String response = restTemplate.postForObject(url, null, String.class);
@@ -29,8 +31,8 @@ public class Supplier1Service implements Supplier {
     }
 
     @Override
-    public void commitReservation(int orderId) throws TimeoutException {
-        String url = String.format("%s/api/medicins/finalize/%d", BASE_URL, orderId);
+    public void commitReservation(UUID orderId) throws TimeoutException {
+        String url = String.format("%s/api/medicins/finalize/%s", BASE_URL, orderId.toString());
 
         try {
             String response = restTemplate.postForObject(url, null, String.class);
@@ -45,8 +47,8 @@ public class Supplier1Service implements Supplier {
     }
 
     @Override
-    public void abortReservation(int orderId) throws TimeoutException {
-        String url = String.format("%s/api/medicins/abort/%d", BASE_URL, orderId);
+    public void abortReservation(UUID orderId) throws TimeoutException {
+        String url = String.format("%s/api/medicins/abort/%s", BASE_URL, orderId.toString());
 
         try {
             String response = restTemplate.postForObject(url, null, String.class);

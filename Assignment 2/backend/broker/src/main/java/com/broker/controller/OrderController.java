@@ -10,17 +10,16 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
     private final OrderService orderService;
-    private final ItemService itemService;
 
-    public OrderController(OrderService orderService, ItemService itemService) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
-        this.itemService = itemService;
     }
 
     // GET /api/orders
@@ -44,7 +43,7 @@ public class OrderController {
 
     // GET /api/orders/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Integer id) {
+    public ResponseEntity<Order> getOrderById(@PathVariable UUID id) {
         return orderService.getOrderById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -59,7 +58,7 @@ public class OrderController {
 
     // GET /api/orders/{id}/status
     @GetMapping("/status/{id}")
-    public ResponseEntity<String> getOrderStatus(@PathVariable Integer id) {
+    public ResponseEntity<String> getOrderStatus(@PathVariable UUID id) {
         return orderService.getOrderStatusById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

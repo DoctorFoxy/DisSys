@@ -7,6 +7,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @Service
 public class Supplier2Service implements Supplier {
@@ -14,8 +15,8 @@ public class Supplier2Service implements Supplier {
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public boolean prepareReservation(int orderId, String supplierItemId, int quantity) throws TimeoutException {
-        String url = String.format("%s/prepare/%d/%s/%d", BASE_URL, orderId, supplierItemId, quantity);
+    public boolean prepareReservation(UUID orderId, String supplierItemId, int quantity) throws TimeoutException {
+        String url = String.format("%s/prepare/%s/%s/%d", BASE_URL, orderId.toString(), supplierItemId, quantity);
         try {
             Supplier2PurchaseResponseDTO dto = restTemplate.postForObject(url, null, Supplier2PurchaseResponseDTO.class);
             return dto != null && dto.isSuccess();
@@ -27,8 +28,8 @@ public class Supplier2Service implements Supplier {
     }
 
     @Override
-    public void commitReservation(int orderId) throws TimeoutException {
-        String url = String.format("%s/commit/%d", BASE_URL, orderId);
+    public void commitReservation(UUID orderId) throws TimeoutException {
+        String url = String.format("%s/commit/%s", BASE_URL, orderId.toString());
         try {
             Supplier2PurchaseResponseDTO dto = restTemplate.postForObject(url, null, Supplier2PurchaseResponseDTO.class);
             if (dto != null && dto.isError()) throw new TimeoutException("Commit failed: " + dto.getError());
@@ -39,8 +40,8 @@ public class Supplier2Service implements Supplier {
     }
 
     @Override
-    public void abortReservation(int orderId) throws TimeoutException {
-        String url = String.format("%s/abort/%d", BASE_URL, orderId);
+    public void abortReservation(UUID orderId) throws TimeoutException {
+        String url = String.format("%s/abort/%s", BASE_URL, orderId.toString());
         try {
             Supplier2PurchaseResponseDTO dto = restTemplate.postForObject(url, null, Supplier2PurchaseResponseDTO.class);
             if (dto != null && dto.isError()) throw new TimeoutException("Abort failed: " + dto.getError());

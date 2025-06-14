@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class OrderService {
@@ -47,7 +48,7 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Optional<Order> getOrderById(Integer id) {
+    public Optional<Order> getOrderById(UUID id) {
         return orderRepository.findById(id);
     }
 
@@ -55,7 +56,7 @@ public class OrderService {
         return orderRepository.findAllByUserId(user_id);
     }
 
-    public Optional<String> getOrderStatusById(Integer id) {
+    public Optional<String> getOrderStatusById(UUID id) {
         return orderRepository.findStatusById(id);
     }
 

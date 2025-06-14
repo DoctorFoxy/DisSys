@@ -4,14 +4,17 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
 @Data
 public class Order {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "uuid")
+    private UUID id;
 
     @Column(name = "delivery_address")
     private String deliveryAddress;
