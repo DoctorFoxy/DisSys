@@ -59,12 +59,12 @@ public class Supplier2Service implements Supplier {
         }
     }
 
-    private Supplier2PurchaseResponseDTO parseErrorDTO(HttpClientErrorException e) {
+    private Supplier2PurchaseResponseDTO parseErrorDTO(HttpClientErrorException e) throws TimeoutException {
         try {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(e.getResponseBodyAsString(), Supplier2PurchaseResponseDTO.class);
         } catch (IOException ex) {
-            throw new RuntimeException("Failed to parse Supplier2 error response", ex);
+            throw new TimeoutException("message");
         }
     }
 }
