@@ -1,7 +1,9 @@
 package com.broker.service.supplier;
 
 import com.broker.dto.Supplier1PurchaseResponseDTO;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.RestClientException;
 
@@ -12,13 +14,16 @@ public class Supplier1Service implements Supplier {
 
     @Override
     public boolean prepareReservation(int orderId, String supplierItemId, int quantity) throws TimeoutException {
-        String url = String.format("%s/api/medicins/prepare/%d/%d/%d", BASE_URL, orderId, supplierItemId, quantity);
+        String url = String.format("%s/api/medicins/prepare/%d/%s/%d", BASE_URL, orderId, supplierItemId, quantity);
 
         try {
             String response = restTemplate.postForObject(url, null, String.class);
             Supplier1PurchaseResponseDTO dto = new Supplier1PurchaseResponseDTO(response);
             return dto.isSuccess();
-        } catch (RestClientException e) {
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(409))) {
+                return false;   // Fuck you djeniz
+            }
             throw new TimeoutException("Error during prepareReservation: " + e.getMessage());
         }
     }

@@ -3,9 +3,7 @@ package com.broker.service;
 import com.broker.entity.Item;
 import com.broker.entity.Order;
 import com.broker.repository.OrderRepository;
-import com.broker.service.supplier.FailingSupplierMockup;
 import com.broker.service.supplier.Supplier;
-import com.broker.service.supplier.WorkingSupplierMockup;
 import com.broker.service.supplier.Supplier1Service;
 import com.broker.service.supplier.Supplier2Service;
 import lombok.Data;
@@ -33,12 +31,12 @@ public class OrderService {
 
 
     private final OrderRepository orderRepository;
-    private final ItemService itemService; // TODO: This only has 1 usage, maybe consider getting rid of it
+    private final ItemService itemService;
     private final Supplier supplier1;
     private final Supplier supplier2;
 
 
-    public OrderService(OrderRepository orderRepository, ItemService itemService, FailingSupplierMockup supplier1, WorkingSupplierMockup supplier2) {
+    public OrderService(OrderRepository orderRepository, ItemService itemService, Supplier1Service supplier1, Supplier2Service supplier2) {
         this.orderRepository = orderRepository;
         this.itemService = itemService;
         this.supplier1 = supplier1;
@@ -198,6 +196,11 @@ public class OrderService {
         // Notify suppliers
         try {
             supplier1.abortReservation(order.getId());
+        } catch (Supplier.TimeoutException e) {
+            // Our policy is to not care if the supplier doesn't respond to commit/abort
+        }
+
+        try {
             supplier2.abortReservation(order.getId());
         } catch (Supplier.TimeoutException e) {
             // Our policy is to not care if the supplier doesn't respond to commit/abort
