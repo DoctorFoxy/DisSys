@@ -7,7 +7,7 @@ public class FailingSupplierMockup implements Supplier {
 
     @Override
     public boolean prepareReservation(int reservationId, String itemId, int quantity) throws TimeoutException {
-        throw new TimeoutException();
+        throw new TimeoutException("Error during prepareReservation: ");
     }
 
     @Override

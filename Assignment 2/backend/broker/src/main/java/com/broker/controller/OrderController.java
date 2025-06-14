@@ -56,4 +56,12 @@ public class OrderController {
         String userId = token.getSubject();
         return orderService.getOrderByUserId(userId);
     }
+
+    // GET /api/orders/{id}/status
+    @GetMapping("/status/{id}")
+    public ResponseEntity<String> getOrderStatus(@PathVariable Integer id) {
+        return orderService.getOrderStatusById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

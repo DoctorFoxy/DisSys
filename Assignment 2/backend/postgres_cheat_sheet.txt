@@ -7,6 +7,7 @@ PostgreSQL Terminal Commands Cheat Sheet
 psql -U your_username -d your_database
 Example:
 psql -U brokeruser -d brokerdb -h localhost
+psql -h shubhamuse.eastus.cloudapp.azure.com -p 5432 -U brokeruser -d brokerdb
 
 password: brokerpass
 

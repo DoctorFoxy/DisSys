@@ -1,5 +1,5 @@
 package com.broker.controller.debug;
-//WILL BE REMOVED AT THE END
+//REMOVE AT THE END
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.broker.service.supplier.Supplier1Service;
@@ -16,14 +16,77 @@ public class SupplierDebugController {
         this.supplier2Service = s2;
     }
 
-    @GetMapping("/supplier1/items/{id}")
-    public ResponseEntity<String> getSupplier1Item(@PathVariable Integer id) {
-        return ResponseEntity.ok(supplier1Service.getSupplierItemById(id));
+    @GetMapping("/ping")
+    public String ping() {
+        System.out.println("🔔 PING");
+        return "pong";
     }
 
-    @GetMapping("/supplier2/items/{id}")
-    public ResponseEntity<String> getSupplier2Item(@PathVariable Integer id) {
-        return ResponseEntity.ok(supplier2Service.getSupplierItemById(id));
+    // --- TEST Supplier 1 ---
+    @PostMapping("/supplier1/prepare/{orderId}/{itemId}/{quantity}")
+    public ResponseEntity<?> debugPrepareS1(@PathVariable int orderId, @PathVariable String itemId, @PathVariable int quantity) {
+        System.out.printf("➡️ Preparing Supplier1 reservation: orderId=%d, itemId=%s, quantity=%d%n", orderId, itemId, quantity);
+        try {
+            boolean result = supplier1Service.prepareReservation(orderId, itemId, quantity);
+            return ResponseEntity.ok("Prepare result: " + result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/supplier1/commit/{orderId}")
+    public ResponseEntity<?> debugCommitS1(@PathVariable int orderId) {
+        try {
+            supplier1Service.commitReservation(orderId);
+            return ResponseEntity.ok("Commit succeeded");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Commit error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/supplier1/abort/{orderId}")
+    public ResponseEntity<?> debugAbortS1(@PathVariable int orderId) {
+        try {
+            supplier1Service.abortReservation(orderId);
+            return ResponseEntity.ok("Abort succeeded");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Abort error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/supplier2/prepare/{orderId}/{itemId}/{quantity}")
+    public ResponseEntity<?> debugPrepareS2(
+            @PathVariable int orderId,
+            @PathVariable String itemId,
+            @PathVariable int quantity) {
+        System.out.printf("➡️ Preparing Supplier2 reservation: orderId=%d, itemId=%s, quantity=%d%n", orderId, itemId, quantity);
+        try {
+            boolean result = supplier2Service.prepareReservation(orderId, itemId, quantity);
+            return ResponseEntity.ok("Prepare result: " + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/supplier2/commit/{orderId}")
+    public ResponseEntity<?> debugCommitS2(@PathVariable int orderId) {
+        try {
+            supplier2Service.commitReservation(orderId);
+            return ResponseEntity.ok("Commit succeeded");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Commit error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/supplier2/abort/{orderId}")
+    public ResponseEntity<?> debugAbortS2(@PathVariable int orderId) {
+        try {
+            supplier2Service.abortReservation(orderId);
+            return ResponseEntity.ok("Abort succeeded");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Abort error: " + e.getMessage());
+        }
     }
 
 }

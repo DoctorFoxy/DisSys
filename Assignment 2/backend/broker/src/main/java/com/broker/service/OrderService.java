@@ -6,6 +6,8 @@ import com.broker.repository.OrderRepository;
 import com.broker.service.supplier.FailingSupplierMockup;
 import com.broker.service.supplier.Supplier;
 import com.broker.service.supplier.WorkingSupplierMockup;
+import com.broker.service.supplier.Supplier1Service;
+import com.broker.service.supplier.Supplier2Service;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -55,6 +57,10 @@ public class OrderService {
         return orderRepository.findAllByUserId(user_id);
     }
 
+    public Optional<String> getOrderStatusById(Integer id) {
+        return orderRepository.findStatusById(id);
+    }
+
     public Order createOrder(CreateOrder createOrder) {
         Item item = this.itemService.getItemById(createOrder.getItemId()).orElse(null);
 
@@ -101,7 +107,7 @@ public class OrderService {
         if (s1_isNoAnswer) {
             // Try to reserve supplier1
             try {
-                boolean reservation_success = reservation_success = supplier1.prepareReservation(
+                boolean reservation_success = supplier1.prepareReservation(
                         order.getId(),
                         order.getItem().getSupplier1ItemId(),
                         order.getItem().getSupplier1ItemQuantity());

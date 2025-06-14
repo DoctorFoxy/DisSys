@@ -12,6 +12,8 @@ public interface Supplier {
      * Thrown, when the supplier doesn't respond.
      */
     class TimeoutException extends Exception {
-
+        public TimeoutException(String message) {
+            super(message);
+        }
     }
 }
