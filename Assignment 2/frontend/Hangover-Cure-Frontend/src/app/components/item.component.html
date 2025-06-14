@@ -8,10 +8,10 @@
     <img mat-card-image [src]="item().imageLink">
 
     <mat-card-content>
-        <p>
-            {{ item().description }}
-            <br>
-            {{ item().price }}€
-        </p>
+        <p>{{ item().description }}</p>
     </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-button (click)="openBuyDialog()">Order for {{ item().price }}€</button>
+  </mat-card-actions>
 </mat-card>

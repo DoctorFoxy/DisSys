@@ -4,14 +4,13 @@ import { ItemComponent } from "./item.component";
 import { Observable } from "rxjs";
 import { Item } from "../models/item.model";
 import { AsyncPipe } from "@angular/common";
-import { AuthdebugComponent } from "./authdebug.component";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
     templateUrl: './home.component.html',
     imports: [
     AsyncPipe,
-    ItemComponent,
-    AuthdebugComponent
+    ItemComponent
 ],
 })
 export class HomeComponent {
