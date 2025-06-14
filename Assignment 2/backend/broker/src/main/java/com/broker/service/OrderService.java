@@ -8,7 +8,6 @@ import com.broker.service.supplier.Supplier1Service;
 import com.broker.service.supplier.Supplier2Service;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -78,26 +77,27 @@ public class OrderService {
 
         Order ongoingOrder = orderRepository.save(newOrder);
 
-        Order processedOrder = this.processOngoingOrder(ongoingOrder);
+        Order processedOrder = this.processOngoingOrder(ongoingOrder, createOrder.isSimulateNoFinalizationMessage());
         return processedOrder;
     }
 
-    @Scheduled(fixedRateString = "${broker.order.retry-interval-ms}")
+    //@Scheduled(fixedRateString = "${broker.order.retry-interval-ms}")
     public void processOngoingOrders() {
         // Check for any ongoing orders and process them
         List<Order> ongoingOrders = orderRepository.findAllByStatus(ORDERSTATUS_ONGOING);
         System.out.println("Retrying " + ongoingOrders.size() + " ongoing orders.");
-        ongoingOrders.forEach(this::processOngoingOrder);
-
+        for (Order ongoingOrder : ongoingOrders) {
+            processOngoingOrder(ongoingOrder, false);
+        }
     }
 
-    private synchronized Order processOngoingOrder(Order order) {
+    private synchronized Order processOngoingOrder(Order order, boolean simulateNoFinalizationMessage) {
 
         // If order is expired, then abort
         LocalDateTime expiresAt = order.getTime().plusMinutes(ORDER_TIMEOUT_DURATION_MINUTES);
         boolean isExpired = LocalDateTime.now().isAfter(expiresAt);
         if(isExpired) {
-            return this.abortOrder(order);
+            return this.abortOrder(order, simulateNoFinalizationMessage);
         }
 
 
@@ -120,14 +120,14 @@ public class OrderService {
                     boolean s1_isReserved = order.getSupplier1Status().equals(SUPPLIERSTATUS_RESERVED);
                     boolean s2_isReserved = order.getSupplier2Status().equals(SUPPLIERSTATUS_RESERVED);
                     if (s1_isReserved && s2_isReserved) {
-                        return this.commitOrder(order);
+                        return this.commitOrder(order, simulateNoFinalizationMessage);
                     } else {  // otherwise, save in DB that supplier1 is reserved
                         order = orderRepository.save(order);
                     }
                 } else {
                     // Abort order
                     order.setSupplier1Status(SUPPLIERSTATUS_DECLINED);
-                    return this.abortOrder(order);
+                    return this.abortOrder(order, simulateNoFinalizationMessage);
                 }
             } catch (Supplier.TimeoutException e) {
                 // If supplier doesn't respond, do nothing as this function will be recalled later
@@ -155,14 +155,14 @@ public class OrderService {
                     boolean s1_isReserved = order.getSupplier1Status().equals(SUPPLIERSTATUS_RESERVED);
                     boolean s2_isReserved = order.getSupplier2Status().equals(SUPPLIERSTATUS_RESERVED);
                     if (s1_isReserved && s2_isReserved) {
-                        return this.commitOrder(order);
+                        return this.commitOrder(order, simulateNoFinalizationMessage);
                     } else {  // otherwise, save in DB that supplier2 is reserved
                         order = orderRepository.save(order);
                     }
                 } else {
                     // Abort order
                     order.setSupplier2Status(SUPPLIERSTATUS_DECLINED);
-                    return this.abortOrder(order);
+                    return this.abortOrder(order, simulateNoFinalizationMessage);
                 }
             }
             catch (Supplier.TimeoutException e) {
@@ -173,28 +173,44 @@ public class OrderService {
         return order;
     }
 
-    private Order commitOrder(Order order) {
+    private Order commitOrder(Order order, boolean simulateNoFinalizationMessage) {
         // Save in DB first
         order.setStatus(ORDERSTATUS_SUCCEEDED);
         order = orderRepository.save(order);
 
+
         // Notify suppliers
+        if(simulateNoFinalizationMessage) {
+            return order;
+        }
+
         try {
             supplier1.commitReservation(order.getId());
+        } catch (Supplier.TimeoutException e) {
+            // Our policy is to not care if the supplier doesn't respond to commit/abort
+        }
+
+        try {
             supplier2.commitReservation(order.getId());
         } catch (Supplier.TimeoutException e) {
             // Our policy is to not care if the supplier doesn't respond to commit/abort
         }
 
+
+
         return order;
     }
 
-    private Order abortOrder(Order order) {
+    private Order abortOrder(Order order, boolean simulateNoFinalizationMessage) {
         // Save in DB first
         order.setStatus(ORDERSTATUS_FAILED);
         order = orderRepository.save(order);
 
         // Notify suppliers
+        if(simulateNoFinalizationMessage) {
+            return order;
+        }
+
         try {
             supplier1.abortReservation(order.getId());
         } catch (Supplier.TimeoutException e) {
@@ -215,5 +231,6 @@ public class OrderService {
         private String userId;
         private int itemId;
         private String deliveryAddress;
+        private boolean simulateNoFinalizationMessage;
     }
 }

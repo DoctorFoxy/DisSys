@@ -1,7 +1,6 @@
 package com.broker.controller;
 
 import com.broker.entity.Order;
-import com.broker.service.ItemService;
 import com.broker.service.OrderService;
 import com.broker.dto.CreateOrderDTO;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +36,7 @@ public class OrderController {
         newOrder.setDeliveryAddress(dto.getDeliveryAddress());
         newOrder.setItemId(dto.getItemId());
         newOrder.setUserId(userId);
+        newOrder.setSimulateNoFinalizationMessage(dto.isSimulateNoFinalizationMessage());
 
         return orderService.createOrder(newOrder);
     }
@@ -59,6 +59,7 @@ public class OrderController {
     // GET /api/orders/{id}/status
     @GetMapping("/status/{id}")
     public ResponseEntity<String> getOrderStatus(@PathVariable UUID id) {
+        System.out.println("status poll endpoint called for " + id);
         return orderService.getOrderStatusById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
