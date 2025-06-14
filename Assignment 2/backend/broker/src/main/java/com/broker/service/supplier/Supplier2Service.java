@@ -16,7 +16,15 @@ public class Supplier2Service implements Supplier {
 
     @Override
     public boolean prepareReservation(UUID orderId, String supplierItemId, int quantity) throws TimeoutException {
-        String url = String.format("%s/prepare/%s/%s/%d", BASE_URL, orderId.toString(), supplierItemId, quantity);
+        String decisionPollUrl = "http://shubhamuse.eastus.cloudapp.azure.com/api/orders/status/" + orderId.toString();
+        String url = String.format(
+                "%s/prepare/%s/%s/%d/%s",
+                BASE_URL,
+                orderId.toString(),
+                supplierItemId,
+                quantity,
+                decisionPollUrl);
+
         try {
             Supplier2PurchaseResponseDTO dto = restTemplate.postForObject(url, null, Supplier2PurchaseResponseDTO.class);
             return dto != null && dto.isSuccess();
