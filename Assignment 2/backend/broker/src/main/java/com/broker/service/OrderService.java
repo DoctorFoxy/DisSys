@@ -90,7 +90,7 @@ public class OrderService {
 
     }
 
-    private Order processOngoingOrder(Order order) {
+    private synchronized Order processOngoingOrder(Order order) {
 
         // If order is expired, then abort
         LocalDateTime expiresAt = order.getTime().plusMinutes(ORDER_TIMEOUT_DURATION_MINUTES);
