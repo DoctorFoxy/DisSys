@@ -8,6 +8,7 @@ import com.broker.service.supplier.Supplier1Service;
 import com.broker.service.supplier.Supplier2Service;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -81,7 +82,7 @@ public class OrderService {
         return processedOrder;
     }
 
-    //@Scheduled(fixedRateString = "${broker.order.retry-interval-ms}")
+    @Scheduled(fixedRateString = "${broker.order.retry-interval-ms}")
     public void processOngoingOrders() {
         // Check for any ongoing orders and process them
         List<Order> ongoingOrders = orderRepository.findAllByStatus(ORDERSTATUS_ONGOING);
