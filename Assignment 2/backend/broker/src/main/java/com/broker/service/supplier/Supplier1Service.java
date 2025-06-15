@@ -35,6 +35,8 @@ public class Supplier1Service implements Supplier {
                 return false;   // Fuck you djeniz
             }
             throw new TimeoutException("Error during prepareReservation: " + e.getMessage());
+        } catch (Exception e) {
+            throw new TimeoutException(e.getMessage());
         }
     }
 

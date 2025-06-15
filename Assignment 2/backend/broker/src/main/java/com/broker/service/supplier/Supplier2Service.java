@@ -32,6 +32,8 @@ public class Supplier2Service implements Supplier {
             Supplier2PurchaseResponseDTO dto = parseErrorDTO(e);
             if (dto.isError()) throw new TimeoutException("Prepare failed: " + dto.getError());
             return dto.isSuccess(); // fallback if no error field, but message indicates success
+        } catch (Exception e) {
+            throw new TimeoutException(e.getMessage());
         }
     }
 
