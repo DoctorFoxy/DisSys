@@ -16,7 +16,7 @@ public class Supplier2Service implements Supplier {
 
     @Override
     public boolean prepareReservation(UUID orderId, String supplierItemId, int quantity) throws TimeoutException {
-        String decisionPollUrl = "http://shubhamuse.eastus.cloudapp.azure.com/api/orders/status/" + orderId.toString();
+        String decisionPollUrl = "https://shubhamuse.eastus.cloudapp.azure.com/api/orders/status/" + orderId.toString();
         String url = String.format(
                 "%s/prepare/%s/%s/%d/%s",
                 BASE_URL,
